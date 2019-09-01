@@ -17,5 +17,8 @@ module Tabimemo2
                        helper_specs: false,
                        routing_specs: false
     end
+
+    config.active_record.default_timezone = :local
+    config.time_zone = "Tokyo"
   end
 end
