@@ -1,0 +1,12 @@
+inherit_from:
+  - config/rubocop/rails.yml
+  - config/rubocop/rspec.yml
+  - config/rubocop/rubocop.yml
+
+require:
+  - rubocop-rails
+  - rubocop-performance
+
+AllCops:
+  TargetRubyVersion: 2.6
+  TargetRailsVersion: 6.0
