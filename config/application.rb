@@ -11,6 +11,7 @@ module Tabimemo2
     config.generators do |g|
       g.helper false
       g.stylesheets false
+      g.template_engine :slim
     end
   end
 end
