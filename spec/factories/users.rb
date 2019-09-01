@@ -1,11 +1,10 @@
 FactoryBot.define do
   factory :user do
-    provider { "MyString" }
-    uid { "MyString" }
-    name { "MyString" }
-    display_name { "MyString" }
-    email { "MyString" }
-    access_token { "MyString" }
-    image_url { "MyString" }
+    provider { "twitter" }
+    uid { "test01234" }
+    name { "test_user" }
+    display_name { "Test User" }
+    email { "user@test.com" }
+    access_token { "testtest" }
   end
 end
