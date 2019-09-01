@@ -12,6 +12,10 @@ module Tabimemo2
       g.helper false
       g.stylesheets false
       g.template_engine :slim
+      g.test_framework :rspec,
+        controller_specs: false,
+        helper_specs: false,
+        routing_specs: false
     end
   end
 end

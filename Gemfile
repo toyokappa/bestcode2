@@ -14,8 +14,10 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'slim'
 
 group :development, :test do
+  gem 'factory_bot_rails'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'rspec-rails'
 end
 
 group :development do
