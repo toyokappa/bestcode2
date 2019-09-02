@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
         auth_user = User.find_or_create_by_omniauth(auth)
         expect(auth_user).to eq user
       end
-      
+
       it "アクセストークンが更新される" do
         User.find_or_create_by_omniauth(auth)
         user.reload
