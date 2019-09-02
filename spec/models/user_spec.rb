@@ -48,6 +48,7 @@ RSpec.describe User, type: :model do
         expect(user.access_token).to eq "abcdefg"
       end
     end
+
     context "ユーザーが存在しない場合" do
       let!(:uid) { "sample01234" }
 
