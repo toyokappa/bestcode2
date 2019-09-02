@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
     }
 
     context "ユーザーが存在する場合" do
-      let!(:uid) { user.uid }
+      let(:uid) { user.uid }
 
       it "既存のユーザーが返却される" do
         auth_user = User.find_or_create_by_omniauth(auth)
@@ -50,7 +50,7 @@ RSpec.describe User, type: :model do
     end
 
     context "ユーザーが存在しない場合" do
-      let!(:uid) { "sample01234" }
+      let(:uid) { "sample01234" }
 
       it "新たにユーザーが作成される" do
         auth_user = User.find_or_create_by_omniauth(auth)
