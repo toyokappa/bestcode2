@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  build:
     working_directory: ~/tabimemo2
     docker:
       - image: circleci/ruby:2.6.4-node-browsers
@@ -11,17 +11,25 @@ jobs:
           DATABASE_HOST: 127.0.0.1
           DATABASE_USER: root
           RAILS_ENV: test
-      - image: circleci/mysql:5.6
+      - image: circleci/mysql:5.7
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --ft_min_word_len=1
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
 
     steps:
       - checkout
+      - run:
+          name: Setup bundler
+          command: |
+            sudo gem update --system
+            sudo gem uninstall bundler
+            sudo rm /usr/local/bin/bundle
+            sudo rm /usr/local/bin/bundler
+            sudo gem install bundler
       - restore_cache:
-        keys:
-          - v1-test-job-cache-bundle-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          - v1-test-job-cache-bundle-{{ .Branch }}-
+          keys:
+            - v1-test-job-cache-bundle-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - v1-test-job-cache-bundle-{{ .Branch }}-
       - run:
           name: Bundle Install
           command: bundle install --path=vendor/bundle
@@ -45,4 +53,4 @@ jobs:
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - run:
           name: Run rubocop
-          commant: bundle exec rubocop
+          command: bundle exec rubocop
