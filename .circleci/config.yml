@@ -19,9 +19,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - v1-test-job-cache-bundle-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          - v1-test-job-cache-bundle-{{ .Branch }}-
+          keys:
+            - v1-test-job-cache-bundle-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - v1-test-job-cache-bundle-{{ .Branch }}-
       - run:
           name: Bundle Install
           command: bundle install --path=vendor/bundle
