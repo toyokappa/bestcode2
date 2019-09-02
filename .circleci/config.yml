@@ -45,4 +45,4 @@ jobs:
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - run:
           name: Run rubocop
-          commant: bundle exec rubocop
+          command: bundle exec rubocop
