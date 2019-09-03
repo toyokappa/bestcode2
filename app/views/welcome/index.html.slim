@@ -2,7 +2,7 @@ h1 hellow world
 - if user_signed_in?
   = "#{current_user.name}でログイン中"
   - @plans.each do |plan|
-    p = link_to plan.name, edit_users_plan_path(plan)
+    p = link_to plan.name, plan_path(plan)
   p = link_to 'ログアウト', users_sign_out_path, method: :delete
   p = link_to 'プラン作成', new_users_plan_path
 - else
