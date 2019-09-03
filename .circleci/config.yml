@@ -28,13 +28,13 @@ jobs:
             sudo gem install bundler
       - restore_cache:
           keys:
-            - v1-test-job-cache-bundle-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - v1-test-job-cache-bundle-{{ .Branch }}-
+            - v1-test-job-cache-bundle-{{ checksum "Gemfile.lock" }}
+            - v1-test-job-cache-bundle-
       - run:
           name: Bundle Install
           command: bundle install --path=vendor/bundle
       - save_cache:
-          key: v1-test-job-cache-bundle-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: v1-test-job-cache-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
