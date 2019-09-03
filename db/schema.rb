@@ -10,16 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_03_143044) do
+ActiveRecord::Schema.define(version: 2019_09_03_155004) do
 
   create_table "plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.text "description"
     t.integer "state", default: 0, null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_plans_on_user_id"
+  end
+
+  create_table "spots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.text "description"
+    t.string "address"
+    t.decimal "latitude", precision: 11, scale: 8
+    t.decimal "longitude", precision: 11, scale: 8
+    t.integer "review"
+    t.integer "position"
+    t.bigint "plan_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_id"], name: "index_spots_on_plan_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
@@ -36,4 +50,6 @@ ActiveRecord::Schema.define(version: 2019_09_03_143044) do
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end
 
+  add_foreign_key "plans", "users"
+  add_foreign_key "spots", "plans"
 end
