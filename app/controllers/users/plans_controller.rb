@@ -1,4 +1,4 @@
-class Users::PlansController < ApplicationController
+class Users::PlansController < Users::ApplicationController
   def new
     @plan = current_user.plans.build
   end
