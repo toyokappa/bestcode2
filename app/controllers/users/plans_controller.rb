@@ -33,7 +33,7 @@ class Users::PlansController < Users::ApplicationController
 
   private
 
-  def plan_params
-    params.require(:plan).permit(:name, :description, :state)
-  end
+    def plan_params
+      params.require(:plan).permit(:name, :description, :state)
+    end
 end
