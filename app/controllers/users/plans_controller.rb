@@ -12,6 +12,19 @@ class Users::PlansController < ApplicationController
     end
   end
 
+  def edit
+    @plan = current_user.plans.find(params[:id])
+  end
+
+  def update
+    @plan = current_user.plans.find(params[:id])
+    if @plan.update(plan_params)
+      redirect_to root_path, success: "プランを更新しました"
+    else
+      render :edit
+    end
+  end
+
   private
 
   def plan_params

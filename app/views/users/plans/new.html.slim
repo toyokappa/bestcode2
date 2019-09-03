@@ -1,5 +1,1 @@
-= form_with model: @plan, url: users_plans_path, local: true do |f|
-  = f.text_field :name
-  = f.text_area :description
-  = f.submit
-
+= render "form", model: @plan, url: users_plans_path
