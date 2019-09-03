@@ -6,7 +6,7 @@ class Users::PlansController < Users::ApplicationController
   def create
     @plan = current_user.plans.build(plan_params)
     if @plan.save
-      redirect_to root_path, success: "プランを作成しました"
+      redirect_to @plan, success: "プランを作成しました"
     else
       render :new
     end
@@ -19,7 +19,7 @@ class Users::PlansController < Users::ApplicationController
   def update
     @plan = current_user.plans.find(params[:id])
     if @plan.update(plan_params)
-      redirect_to root_path, success: "プランを更新しました"
+      redirect_to @plan, success: "プランを更新しました"
     else
       render :edit
     end
