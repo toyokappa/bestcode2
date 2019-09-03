@@ -25,6 +25,12 @@ class Users::PlansController < Users::ApplicationController
     end
   end
 
+  def destroy
+    plan = current_user.plans.find(params[:id])
+    plan.destroy!
+    redirect_to root_path, success: "プランを削除しました"
+  end
+
   private
 
   def plan_params
