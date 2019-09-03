@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :plans, dependent: :destroy
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   class << self

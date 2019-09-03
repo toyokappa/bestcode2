@@ -22,8 +22,8 @@ module Sessionable
       session[:forwarding_url] = request.original_url if request.get?
     end
 
-    def redirect_back_or(default)
-      redirect_to(session[:forwarding_url] || default)
+    def redirect_back_or(default, **args)
+      redirect_to session[:forwarding_url] || default, **args
       session.delete(:forwarding_url)
     end
 end

@@ -1,0 +1,5 @@
+h1 = @plan.name
+p = @plan.description
+- if @plan.user == current_user
+  p = link_to "編集", edit_users_plan_path(@plan)
+  p = link_to "削除", users_plan_path(@plan), method: :delete
