@@ -1,12 +1,17 @@
 class Users::PlansController < Users::ApplicationController
   def new
-    @plan = current_user.plans.build
+    plan = current_user.plans.build
+    plan.spots.build
+    @form = PlanForm.new(plan)
   end
 
   def create
-    @plan = current_user.plans.build(plan_params)
-    if @plan.save
-      redirect_to @plan, success: "プランを作成しました"
+    plan = current_user.plans.build
+    plan.spots.build
+    @form = PlanForm.new(plan)
+    if @form.validate(plan_params)
+      @form.save
+      redirect_to plan, success: "プランを作成しました"
     else
       render :new
     end
@@ -14,11 +19,14 @@ class Users::PlansController < Users::ApplicationController
 
   def edit
     @plan = current_user.plans.find(params[:id])
+    @form = PlanForm.new(@plan)
   end
 
   def update
     @plan = current_user.plans.find(params[:id])
-    if @plan.update(plan_params)
+    @form = PlanForm.new(@plan)
+    if @form.validate(plan_params)
+      @form.save
       redirect_to @plan, success: "プランを更新しました"
     else
       render :edit
@@ -34,6 +42,6 @@ class Users::PlansController < Users::ApplicationController
   private
 
     def plan_params
-      params.require(:plan).permit(:name, :description, :state)
+      params.require(:plan).permit(:name, :description, :state, spots_attributes: [:id, :name, :description])
     end
 end
