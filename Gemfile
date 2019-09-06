@@ -16,6 +16,10 @@ gem "webpacker", "~> 4.0"
 # Authentication
 gem "omniauth-twitter"
 
+# FormObject
+gem "reform"
+gem "reform-rails"
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "pry-byebug"
