@@ -42,6 +42,6 @@ class Users::PlansController < Users::ApplicationController
   private
 
     def plan_params
-      params.require(:plan).permit(:name, :description, :state, spots_attributes: [:name, :description])
+      params.require(:plan).permit(:name, :description, :state, spots_attributes: [:id, :name, :description])
     end
 end
