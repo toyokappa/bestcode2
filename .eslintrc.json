@@ -1,11 +1,11 @@
 {
   "plugins": [
-    "prettier",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier"
   ],
   "extends": [
-    "prettier",
-    "airbnb"
+    "airbnb",
+    "prettier"
   ],
   "rules": {
     "prettier/prettier": "error"
