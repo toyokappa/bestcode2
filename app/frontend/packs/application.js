@@ -1,7 +1,8 @@
 import Rails from "rails-ujs";
 import Turbolinks from "turbolinks";
 
-import "../stylesheets/application.css";
+import "bootstrap";
+import "../stylesheets/application.scss";
 
 function init() {
   Rails.start();
