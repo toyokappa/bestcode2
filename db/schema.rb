@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(version: 2019_09_03_155004) do
   create_table "courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.text "description"
-    t.integer "fee"
-    t.boolean "is_shot"
-    t.boolean "has_stopped"
+    t.integer "fee", default: 0, null: false
+    t.boolean "is_shot", default: false, null: false
+    t.boolean "has_stopped", default: false, null: false
     t.bigint "plan_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
