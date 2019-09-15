@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/tabimemo2
+    working_directory: ~/bestcode2
     docker:
       - image: circleci/ruby:2.6.4-node-browsers
         environment:
