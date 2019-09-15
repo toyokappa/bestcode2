@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
     let!(:user) { create :user }
     let(:auth) {
       OmniAuth::AuthHash.new({
-        provider: "twitter",
+        provider: "github",
         uid: uid,
         info: {
           nickname: "sample_user",
