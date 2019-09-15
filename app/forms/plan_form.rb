@@ -3,10 +3,11 @@ class PlanForm < Reform::Form
   property :description
   property :state
 
-  collection :spots do
+  collection :courses do
     property :name, validates: { presence: true }
     property :description
-    property :review
-    property :position
+    property :fee
+    property :is_shot
+    property :has_stopped
   end
 end
