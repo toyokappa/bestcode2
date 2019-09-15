@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :plans, dependent: :destroy
+  has_one :plan, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 

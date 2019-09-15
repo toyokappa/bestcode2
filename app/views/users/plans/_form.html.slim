@@ -1,7 +1,7 @@
-= form_with model: model, url: url, local: true do |f|
+= form_with model: model, url: users_plan_path, local: true do |f|
   = f.text_field :name
   = f.text_area :description
-  = f.fields_for :spots do |sf|
-    = sf.text_field :name
-    = sf.text_area :description
+  = f.fields_for :courses do |cf|
+    = cf.text_field :name
+    = cf.text_area :description
   = f.submit
