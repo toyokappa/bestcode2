@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_09_03_155004) do
 
-  create_table "plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.text "description"
     t.integer "state", default: 0, null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_09_03_155004) do
     t.index ["user_id"], name: "index_plans_on_user_id"
   end
 
-  create_table "spots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "spots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.text "description"
     t.string "address"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_09_03_155004) do
     t.index ["plan_id"], name: "index_spots_on_plan_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "provider", default: "", null: false
     t.string "uid", default: "", null: false
     t.string "name", default: "", null: false
