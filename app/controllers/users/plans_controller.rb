@@ -1,13 +1,13 @@
 class Users::PlansController < Users::ApplicationController
   def new
-    plan = current_user.plans.build
-    plan.spots.build
+    plan = current_user.build_plan
+    plan.courses.build
     @form = PlanForm.new(plan)
   end
 
   def create
-    plan = current_user.plans.build
-    plan.spots.build
+    plan = current_user.build_plan
+    plan.courses.build
     @form = PlanForm.new(plan)
     if @form.validate(plan_params)
       @form.save
@@ -18,12 +18,12 @@ class Users::PlansController < Users::ApplicationController
   end
 
   def edit
-    @plan = current_user.plans.find(params[:id])
+    @plan = current_user.plan
     @form = PlanForm.new(@plan)
   end
 
   def update
-    @plan = current_user.plans.find(params[:id])
+    @plan = current_user.plan
     @form = PlanForm.new(@plan)
     if @form.validate(plan_params)
       @form.save
@@ -34,14 +34,13 @@ class Users::PlansController < Users::ApplicationController
   end
 
   def destroy
-    plan = current_user.plans.find(params[:id])
-    plan.destroy!
+    current_user.plan.destroy!
     redirect_to root_path, success: "プランを削除しました"
   end
 
   private
 
     def plan_params
-      params.require(:plan).permit(:name, :description, :state, spots_attributes: [:id, :name, :description])
+      params.require(:plan).permit(:name, :description, :state, courses_attributes: [:id, :name, :description])
     end
 end

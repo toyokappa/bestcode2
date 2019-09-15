@@ -14,7 +14,7 @@ gem "turbolinks", "~> 5"
 gem "webpacker", "~> 4.0"
 
 # Authentication
-gem "omniauth-twitter"
+gem "omniauth-github"
 
 # FormObject
 gem "reform"
