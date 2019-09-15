@@ -10,12 +10,12 @@ default: &default
 
 development:
   <<: *default
-  database: tabimemo2_development
+  database: bestcode2_development
 
 test:
   <<: *default
-  database: tabimemo2_test
+  database: bestcode2_test
 
 production:
   <<: *default
-  database: tabimemo2_production
+  database: bestcode2_production
