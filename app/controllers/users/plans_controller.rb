@@ -41,6 +41,6 @@ class Users::PlansController < Users::ApplicationController
   private
 
     def plan_params
-      params.require(:plan).permit(:name, :description, :state, courses_attributes: [:id, :name, :description])
+      params.require(:plan).permit(:name, :description, :state, courses_attributes: [:id, :name, :description, :fee, :is_shot, :has_stopped])
     end
 end
