@@ -20,6 +20,10 @@ gem "omniauth-github"
 gem "reform"
 gem "reform-rails"
 
+# View
+gem "coderay"
+gem "redcarpet"
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "pry-byebug"
