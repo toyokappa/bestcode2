@@ -7,13 +7,13 @@ RSpec.describe User, type: :model do
     it "user.nameはユニークである" do
       actual_user = build(:user, uid: "actual01234")
       actual_user.valid?
-      expect(actual_user.errors[:name]).to include("has already been taken")
+      expect(actual_user.errors[:name]).to include("はすでに存在します")
     end
 
     it "user.nameはユニークであるが、大文字小文字は区別されない" do
       actual_user = build(:user, uid: "actual01234", name: "Test_User")
       actual_user.valid?
-      expect(actual_user.errors[:name]).to include("has already been taken")
+      expect(actual_user.errors[:name]).to include("はすでに存在します")
     end
   end
 

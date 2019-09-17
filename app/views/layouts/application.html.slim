@@ -8,19 +8,20 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
     header.navbar.navbar-expand-lg.navbar-fixed-top.navbar-light.bg-warning
-      .navbar-header
-        = link_to "BestCode", root_path, class: "pc navbar-brand"
-      button.navbar-toggler type="button" data={ toggle: "collapse", target: "#headerNavToggler" }
-        span.navbar-toggler-icon
-      #headerNavToggler.collapse.navbar-collapse
-        ul.navbar-nav.ml-auto
-          - if user_signed_in?
-            li.nav-item
-              = link_to "プラン作成", new_users_plan_path, class: "nav-link"
-            li.nav-item
-              = link_to "ログアウト", users_sign_out_path, class: "nav-link", method: :delete
-          - else
-            li.nav-item
-              = link_to "ログイン", "users/auth/github", class: "nav-link"
-    .wrapper.mt-3.mx-3
+      nav.container
+        .navbar-header
+          = link_to "BestCode", root_path, class: "pc navbar-brand"
+        button.navbar-toggler type="button" data={ toggle: "collapse", target: "#headerNavToggler" }
+          span.navbar-toggler-icon
+        #headerNavToggler.collapse.navbar-collapse
+          ul.navbar-nav.ml-auto
+            - if user_signed_in?
+              li.nav-item
+                = link_to "プラン作成", new_users_plan_path, class: "nav-link"
+              li.nav-item
+                = link_to "ログアウト", users_sign_out_path, class: "nav-link", method: :delete
+            - else
+              li.nav-item
+                = link_to "ログイン", "users/auth/github", class: "nav-link"
+    .wrapper.container.my-5
       = yield

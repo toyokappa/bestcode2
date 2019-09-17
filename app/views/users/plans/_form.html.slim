@@ -1,7 +1,27 @@
 = form_with model: model, url: users_plan_path, local: true do |f|
-  = f.text_field :name
-  = f.text_area :description
+  .form-group
+    = f.label :name, Plan.human_attribute_name(:name)
+    = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :description, Plan.human_attribute_name(:description)
+    = f.text_area :description, rows: 5, class: "form-control"
+  h4 コース設定
   = f.fields_for :courses do |cf|
-    = cf.text_field :name
-    = cf.text_area :description
-  = f.submit
+    .form-group.form-row
+      .col-md-6
+        = cf.text_field :name, placeholder: Course.human_attribute_name(:name), class: "form-control"
+      .col-md-3
+      .col-md-3
+        .form-inline
+          = cf.number_field :fee, placeholder: Course.human_attribute_name(:fee), class: "form-control ml-auto"
+          span.ml-2 円/月
+    .form-group
+      = cf.text_area :description, placeholder: Course.human_attribute_name(:description), rows: 5, class: "form-control"
+    .form-group
+      .form-check.form-check-inline
+        = cf.check_box :is_shot, class: "form-check-input"
+        = cf.label :is_shot, Course.human_attribute_name(:is_shot), class: "form-check-label"
+      .form-check.form-check-inline
+        = cf.check_box :has_stopped, class: "form-check-input"
+        = cf.label :has_stopped, Course.human_attribute_name(:has_stopped), class: "form-check-label"
+  = f.submit class: "btn btn-primary"

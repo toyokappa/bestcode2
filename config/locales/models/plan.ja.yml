@@ -1,0 +1,6 @@
+ja:
+  activerecord:
+    attributes:
+      plan:
+        name: タイトル
+        description: できること

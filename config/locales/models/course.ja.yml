@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      course:
+        name: コース名
+        description: コース説明
+        fee: 料金
+        is_shot: 単発
+        has_stopped: 中止

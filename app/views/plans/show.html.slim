@@ -1,5 +1,13 @@
-h1 = @plan.name
-p = @plan.description
-- if @plan.user == current_user
-  p = link_to "編集", edit_users_plan_path(@plan)
-  p = link_to "削除", users_plan_path(@plan), method: :delete
+h1.text-md.font-weight-bold.mb-4 = @plan.name
+h2.font-weight-bold.text-warning.mb-3 できること
+.markdown-body = markdown @plan.description
+.mt-5
+  h3.font-weight-bold.text-warning.mb-3 コース
+  - @plan.courses.each do |course|
+    h4.font-weight-bold = course.name
+    .badge.badge-warning.mb-3 #{course.fee.to_s(:delimited)}円/月
+    .markdown-body = markdown course.description
+  - if @plan.user == current_user
+    .text-right
+      span.mr-3 = link_to "編集", edit_users_plan_path(@plan)
+      span = link_to "削除", users_plan_path(@plan), method: :delete
