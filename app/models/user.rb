@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_one :plan, dependent: :destroy
+  has_many :contracts
+  has_many :contracted_courses, through: :contracts, source: :course
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
