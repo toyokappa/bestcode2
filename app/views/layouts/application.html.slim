@@ -22,6 +22,6 @@ html
                 = link_to "ログアウト", users_sign_out_path, class: "nav-link", method: :delete
             - else
               li.nav-item
-                = link_to "ログイン", "users/auth/github", class: "nav-link"
+                = link_to "ログイン", "/users/auth/github", class: "nav-link"
     .wrapper.container.my-5
       = yield

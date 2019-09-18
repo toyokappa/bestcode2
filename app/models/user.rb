@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_one :plan, dependent: :destroy
+  has_many :contracts, dependent: :nullify
+  has_many :contracted_courses, through: :contracts, source: :course
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
@@ -20,5 +22,9 @@ class User < ApplicationRecord
         )
       end
     end
+  end
+
+  def contracting?(course_id)
+    contracted_courses.with_alive_contracts.exists?(course_id)
   end
 end
