@@ -14,6 +14,8 @@ class Contract < ApplicationRecord
 
   # 有効な契約が存在するかどうかの検証
   def has_alive_contracts?
+    return false if state_finished? || state_canceled?
+
     contracts = self.class.where(user: user, course: course)
     contracts.any? { |c| c.state_applying? || c.state_waiting_for_payment? || c.state_under_contract? }
   end
