@@ -58,4 +58,33 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#contracting?" do
+    let!(:user) { create :user }
+    let!(:course) { create :course }
+
+    context "契約が存在しない場合" do
+      it { expect(user.contracting?(course.id)).to be false }
+    end
+    context "申請中ステータスの契約が存在する場合" do
+      before { create :contract, user: user, course: course, state: :applying }
+      it { expect(user.contracting?(course.id)).to be true }
+    end
+    context "申請中ステータスの契約が存在する場合" do
+      before { create :contract, user: user, course: course, state: :waiting_for_payment }
+      it { expect(user.contracting?(course.id)).to be true }
+    end
+    context "申請中ステータスの契約が存在する場合" do
+      before { create :contract, user: user, course: course, state: :under_contract }
+      it { expect(user.contracting?(course.id)).to be true }
+    end
+    context "申請中ステータスの契約が存在する場合" do
+      before { create :contract, user: user, course: course, state: :finished }
+      it { expect(user.contracting?(course.id)).to be false }
+    end
+    context "申請中ステータスの契約が存在する場合" do
+      before { create :contract, user: user, course: course, state: :canceled }
+      it { expect(user.contracting?(course.id)).to be false }
+    end
+  end
 end
