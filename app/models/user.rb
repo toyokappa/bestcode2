@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_many :contracts, dependent: :nullify
   has_many :contracted_courses, through: :contracts, source: :course
 
+  mount_uploader :image, ImageUploader
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   class << self
@@ -18,6 +20,7 @@ class User < ApplicationRecord
           name: auth.info.nickname,
           display_name: auth.info.name,
           email: auth.info.email,
+          remote_image_url: auth.info.image,
           access_token: auth.credentials.token,
         )
       end
