@@ -7,6 +7,11 @@ h2.font-weight-bold.text-warning.mb-3 できること
     h4.font-weight-bold = course.name
     .badge.badge-warning.mb-3 #{course.fee.to_s(:delimited)}円/月
     .markdown-body = markdown course.description
+    - if user_signed_in? && @plan.user != current_user
+      - if current_user.contracting?(course.id)
+        = link_to "このコースを解約する", users_course_contract_path(course), method: :delete, class: "btn btn-danger"
+      - else
+        = link_to "このコースを契約する", users_course_contract_path(course), method: :post, class: "btn btn-warning"
   - if @plan.user == current_user
     .text-right
       span.mr-3 = link_to "編集", edit_users_plan_path(@plan)

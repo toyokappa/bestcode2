@@ -23,4 +23,8 @@ class User < ApplicationRecord
       end
     end
   end
+
+  def contracting?(course_id)
+    contracted_courses.with_alive_contracts.exists?(course_id)
+  end
 end
