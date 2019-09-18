@@ -1,7 +1,8 @@
 class Users::ContractsController < Users::ApplicationController
   def create
     course = Course.find(params[:course_id])
-    contract = current_user.contracts.create!(course: course)
+    # NOTE: とりあえず契約中ステータスで契約を作成する
+    current_user.contracts.create!(course: course, state: :under_contract)
     redirect_to plan_path(course.plan), success: "契約しました"
   end
 

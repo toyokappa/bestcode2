@@ -17,6 +17,6 @@ class Contract < ApplicationRecord
     return false if state_finished? || state_canceled?
 
     contracts = self.class.where(user: user, course: course)
-    contracts.any? { |c| c.state_applying? || c.state_waiting_for_payment? || c.state_under_contract? }
+    contracts.any? {|c| c.state_applying? || c.state_waiting_for_payment? || c.state_under_contract? }
   end
 end
