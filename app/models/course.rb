@@ -5,6 +5,7 @@ class Course < ApplicationRecord
 
   # 契約中のコース一覧を返す
   scope :with_alive_contracts, -> {
-    eager_load(:contracts).where.not(contracts: { state: [:finished, :canceled] })
+    alive_state = %i[applying waiting_for_payment under_contract]
+    eager_load(:contracts).where(contracts: { state: alive_state })
   }
 end
