@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :course do
-    name { "MyString" }
-    description { "MyText" }
-    fee { 0 }
+    name { "Test Course" }
+    description { "test test test test" }
+    fee { 1000 }
     is_shot { false }
     has_stopped { false }
-    plan { nil }
+    plan
   end
 end

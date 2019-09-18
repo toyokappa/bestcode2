@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :plan do
-    name { "MyString" }
-    description { "MyText" }
+    name { "Test Plan" }
+    description { "test test test test" }
     state { 1 }
-    references { "" }
+    user { create :menter }
   end
 end

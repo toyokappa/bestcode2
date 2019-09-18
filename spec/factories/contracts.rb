@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :contract do
-    user_id { 1 }
-    course_id { 1 }
+    state { :under_contract }
+    user { create :mentee }
+    course
   end
 end

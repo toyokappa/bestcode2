@@ -7,6 +7,5 @@ class CreateContracts < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :contracts, [:user_id, :course_id], unique: true
   end
 end
