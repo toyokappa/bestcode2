@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :courses, only: [] do
       resource :contract, only: %i[create destroy]
     end
+    resources :mentees, only: %i[index]
+    resources :mentors, only: %i[index]
   end
 
   resources :plans, only: %i[show]
