@@ -1,7 +1,10 @@
 class User < ApplicationRecord
   has_one :plan, dependent: :destroy
   has_many :contracts, dependent: :nullify
+  has_many :own_courses, through: :plan, source: :courses
   has_many :contracted_courses, through: :contracts, source: :course
+  has_many :mentors, through: :contracted_courses, source: :owner
+  has_many :mentees, through: :own_courses, source: :contracted_users
 
   mount_uploader :image, ImageUploader
 
