@@ -8,7 +8,7 @@ FactoryBot.define do
     access_token { "testtest" }
   end
 
-  factory :menter, class: User do
+  factory :mentor, class: User do
     provider { "github" }
     uid { "menter01234" }
     name { "test_menter" }
