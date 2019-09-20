@@ -24,6 +24,10 @@ gem "reform-rails"
 gem "coderay"
 gem "redcarpet"
 
+# Image
+gem "carrierwave"
+gem "mini_magick"
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "pry-byebug"
