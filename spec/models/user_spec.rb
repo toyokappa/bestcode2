@@ -27,6 +27,7 @@ RSpec.describe User, type: :model do
           nickname: "sample_user",
           name: "Sample User",
           email: "user@sample.com",
+          image: Faker::LoremFlickr.image,
         },
         credentials: {
           token: "abcdefg",

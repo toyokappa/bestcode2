@@ -5,6 +5,7 @@ FactoryBot.define do
     name { Faker::Internet.username }
     display_name { Faker::Name.name }
     email { Faker::Internet.safe_email }
+    image { Rack::Test::UploadedFile.new(Rails.root.join("spec", "fixtures", "images", "user.jpg") , "jpg") }
     access_token { Faker::Internet.device_token }
   end
 end
