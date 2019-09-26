@@ -2,16 +2,16 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "validation" do
-    before { create :user }
+    before { create :user, name: "same_name" }
 
     it "user.nameはユニークである" do
-      actual_user = build(:user, uid: "actual01234")
+      actual_user = build(:user, name: "same_name")
       actual_user.valid?
       expect(actual_user.errors[:name]).to include("はすでに存在します")
     end
 
     it "user.nameはユニークであるが、大文字小文字は区別されない" do
-      actual_user = build(:user, uid: "actual01234", name: "Test_User")
+      actual_user = build(:user, name: "Same_Name")
       actual_user.valid?
       expect(actual_user.errors[:name]).to include("はすでに存在します")
     end

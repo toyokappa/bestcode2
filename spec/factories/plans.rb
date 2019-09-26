@@ -3,6 +3,6 @@ FactoryBot.define do
     name { "Test Plan" }
     description { "test test test test" }
     state { 1 }
-    user { create :mentor }
+    user
   end
 end
