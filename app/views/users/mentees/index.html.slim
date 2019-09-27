@@ -1,12 +1,14 @@
 .list-group
-  - @mentees.each do |mentee|
-    .list-group-item
-      .d-flex
-        = image_tag mentee.image.thumb.url, class: "image-rounded image-size-md"
-        .ml-3
-          .font-weight-bold = mentee.name
-          - mentee.contracted_courses.with_alive_contracts.each do |course|
-            .d-flex
-              = course.name
-              .ml-auto #{course.fee.to_s(:delimited)}円/月
-
+  - if @mentees.present?
+    - @mentees.each do |mentee|
+      .list-group-item
+        .d-flex
+          = image_tag mentee.image.thumb.url, class: "image-rounded image-size-md"
+          .ml-3
+            .font-weight-bold = mentee.display_name
+            - mentee.contracted_courses.with_alive_contracts.each do |course|
+              .d-flex
+                = course.name
+                .ml-auto #{course.fee.to_s(:delimited)}円/月
+  - else
+    .text-center 現在契約中のメンティーはいません
