@@ -38,6 +38,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "bullet"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "rubocop", require: false
   gem "rubocop-performance", require: false
