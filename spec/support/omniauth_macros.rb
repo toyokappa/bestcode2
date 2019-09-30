@@ -13,7 +13,7 @@ module OmniauthMacros
         credentials: {
           token: Faker::Internet.device_token,
         },
-      }
+      },
     )
   end
 end

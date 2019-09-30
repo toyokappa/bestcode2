@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :mentees, -> { distinct }, through: :mentor_contracts, source: :user
   has_many :mentors, -> { distinct }, through: :mentee_contracts, source: :proposer
 
-  scope :with_alive_contracts, -> (user_type: :mentee) {
+  scope :with_alive_contracts, ->(user_type: :mentee) {
     alive_state = [0, 1, 2] # applying, waiting_for_payment, under_contract
     load_key = "#{user_type}_contracts"
     eager_load(load_key).where(contracts: { state: alive_state })

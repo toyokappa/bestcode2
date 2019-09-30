@@ -33,18 +33,18 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 Capybara.register_driver :selenium_chrome_headless do |app|
-  browser_options = ::Selenium::WebDriver::Chrome::Options.new()
-  browser_options.args << '--headless'
-  browser_options.args << '--disable-gpu'
-  browser_options.args << '--no-sandbox'
-  browser_options.args << '--window-size=1400,1000'
-  browser_options.args << '--lang=ja-JP'
-  browser_options.args << '--disable-dev-shm-usage'
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << "--headless"
+  browser_options.args << "--disable-gpu"
+  browser_options.args << "--no-sandbox"
+  browser_options.args << "--window-size=1400,1000"
+  browser_options.args << "--lang=ja-JP"
+  browser_options.args << "--disable-dev-shm-usage"
   Capybara::Selenium::Driver.new(
     app,
     browser: :chrome,
     options: browser_options,
-    desired_capabilities: { "chromeOptions" => { 'w3c' => false } }
+    desired_capabilities: { "chromeOptions" => { "w3c" => false } },
   )
 end
 

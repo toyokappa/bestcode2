@@ -15,6 +15,7 @@ RSpec.describe "Authentication", type: :system do
         expect(page).to have_selector "img.nav-image"
       end
     end
+
     context "2回目以降のログインの場合" do
       let(:user) { create :user }
 
