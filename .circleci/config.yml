@@ -41,8 +41,11 @@ jobs:
           name: Wait for db
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
-          name: Database setup
+          name: Setup Database
           command: bin/rails db:create && bin/rails db:schema:load --trace
+      - run:
+          name: Setup Webpack
+          command: bin/webpack
       - run:
           name: Run rspec
           command: |
