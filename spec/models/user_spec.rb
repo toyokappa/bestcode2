@@ -17,6 +17,22 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe ".with_alive_contracts" do
+    let(:user) { create :user }
+    let(:courses) { create_list :course, 6 }
+
+    before do
+      create(:contract, user: user, course: courses[0], state: :applying)
+      create(:contract, user: user, course: courses[1], state: :waiting_for_payment)
+      create(:contract, user: user, course: courses[2], state: :under_contract)
+      create(:contract, user: user, course: courses[3], state: :finished)
+      create(:contract, user: user, course: courses[4], state: :canceled)
+    end
+
+    it { expect(User.with_alive_contracts(user_type: :mentee).count).to eq 1 }
+    it { expect(User.with_alive_contracts(user_type: :mentor).count).to eq 3 }
+  end
+
   describe ".find_or_create_by_omniauth" do
     let!(:user) { create :user }
     let(:auth) {
