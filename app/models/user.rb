@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :mentor_contracts, through: :own_courses, source: :contracts
   has_many :mentees, -> { distinct }, through: :mentor_contracts, source: :user
   has_many :mentors, -> { distinct }, through: :mentee_contracts, source: :proposer
+  has_many :sent_messages, dependent: :nullify, class_name: "Message", foreign_key: :sender_id
+  has_many :received_messages, dependent: :nullify, class_name: "Message", foreign_key: :receiver_id
 
   scope :with_alive_contracts, ->(user_type: :mentee) {
     alive_state = [0, 1, 2] # applying, waiting_for_payment, under_contract
