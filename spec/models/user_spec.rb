@@ -2,19 +2,35 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "validation" do
-    before { create :user }
+    before { create :user, name: "same_name" }
 
     it "user.nameはユニークである" do
-      actual_user = build(:user, uid: "actual01234")
+      actual_user = build(:user, name: "same_name")
       actual_user.valid?
       expect(actual_user.errors[:name]).to include("はすでに存在します")
     end
 
     it "user.nameはユニークであるが、大文字小文字は区別されない" do
-      actual_user = build(:user, uid: "actual01234", name: "Test_User")
+      actual_user = build(:user, name: "Same_Name")
       actual_user.valid?
       expect(actual_user.errors[:name]).to include("はすでに存在します")
     end
+  end
+
+  describe ".with_alive_contracts" do
+    let(:user) { create :user }
+    let(:courses) { create_list :course, 6 }
+
+    before do
+      create(:contract, user: user, course: courses[0], state: :applying)
+      create(:contract, user: user, course: courses[1], state: :waiting_for_payment)
+      create(:contract, user: user, course: courses[2], state: :under_contract)
+      create(:contract, user: user, course: courses[3], state: :finished)
+      create(:contract, user: user, course: courses[4], state: :canceled)
+    end
+
+    it { expect(User.with_alive_contracts(user_type: :mentee).count).to eq 1 }
+    it { expect(User.with_alive_contracts(user_type: :mentor).count).to eq 3 }
   end
 
   describe ".find_or_create_by_omniauth" do
@@ -27,6 +43,7 @@ RSpec.describe User, type: :model do
           nickname: "sample_user",
           name: "Sample User",
           email: "user@sample.com",
+          image: Faker::LoremFlickr.image,
         },
         credentials: {
           token: "abcdefg",

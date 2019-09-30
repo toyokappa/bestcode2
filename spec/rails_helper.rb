@@ -31,6 +31,23 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
+Capybara.register_driver :selenium_chrome_headless do |app|
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << "--headless"
+  browser_options.args << "--disable-gpu"
+  browser_options.args << "--no-sandbox"
+  browser_options.args << "--window-size=1400,1000"
+  browser_options.args << "--lang=ja-JP"
+  browser_options.args << "--disable-dev-shm-usage"
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    options: browser_options,
+    desired_capabilities: { "chromeOptions" => { "w3c" => false } },
+  )
+end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -60,4 +77,22 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include FactoryBot::Syntax::Methods
+
+  OmniAuth.config.test_mode = true
+  config.include OmniauthMacros
+  config.include SystemSpecHelpers, type: :system
+
+  config.before(:all, type: :system) do
+    OmniAuth.config.mock_auth[:github] = nil # mockの設定をリセットする
+  end
+
+  config.before(:each, type: :system) do
+    driven_by :selenium_chrome_headless # headlessでテストする
+  end
+
+  # テストにてアップロードされた画像の削除
+  config.after(:all) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/public/test/uploads/"])
+    FileUtils.rm_rf(Dir["#{Rails.root}/public/test/tmp/"])
+  end
 end

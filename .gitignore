@@ -28,6 +28,7 @@
 /public/packs
 /public/packs-test
 /public/development
+/public/test
 /node_modules
 /yarn-error.log
 yarn-debug.log*

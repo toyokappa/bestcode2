@@ -1,7 +1,17 @@
 class User < ApplicationRecord
   has_one :plan, dependent: :destroy
-  has_many :contracts, dependent: :nullify
-  has_many :contracted_courses, through: :contracts, source: :course
+  has_many :mentee_contracts, dependent: :nullify, class_name: "Contract"
+  has_many :own_courses, through: :plan, source: :courses
+  has_many :contracted_courses, through: :mentee_contracts, source: :course
+  has_many :mentor_contracts, through: :own_courses, source: :contracts
+  has_many :mentees, -> { distinct }, through: :mentor_contracts, source: :user
+  has_many :mentors, -> { distinct }, through: :mentee_contracts, source: :proposer
+
+  scope :with_alive_contracts, ->(user_type: :mentee) {
+    alive_state = [0, 1, 2] # applying, waiting_for_payment, under_contract
+    load_key = "#{user_type}_contracts"
+    eager_load(load_key).where(contracts: { state: alive_state })
+  }
 
   mount_uploader :image, ImageUploader
 

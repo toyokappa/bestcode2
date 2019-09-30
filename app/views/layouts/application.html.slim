@@ -18,6 +18,8 @@ html
                 = image_tag current_user.image.thumb.url, class: "nav-image"
               .dropdown-menu.dropdown-menu-right
                 = link_to "プラン作成", new_users_plan_path, class: "dropdown-item"
+                = link_to "メンター", users_mentors_path, class: "dropdown-item"
+                = link_to "メンティー", users_mentees_path, class: "dropdown-item"
                 = link_to "ログアウト", users_sign_out_path, class: "dropdown-item", method: :delete
           - else
             li.nav-item

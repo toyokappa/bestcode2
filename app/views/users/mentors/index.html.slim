@@ -1,0 +1,14 @@
+.list-group
+  - if @mentors.present?
+    - @mentors.each do |mentor|
+      .list-group-item
+        .d-flex
+          = image_tag mentor.image.thumb.url, class: "image-rounded image-size-md"
+          .ml-3
+            .font-weight-bold = mentor.display_name
+            - mentor.own_courses.with_alive_contracts.each do |course|
+              .d-flex
+                = course.name
+                .ml-auto #{course.fee.to_s(:delimited)}円/月
+  - else
+    .text-center 現在契約中のメンターはいません

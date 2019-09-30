@@ -27,22 +27,40 @@ jobs:
             sudo rm /usr/local/bin/bundler
             sudo gem install bundler
       - restore_cache:
+          name: Restore bundle cache
           keys:
             - v1-test-job-cache-bundle-{{ checksum "Gemfile.lock" }}
             - v1-test-job-cache-bundle-
+      - restore_cache:
+          name: Restore yarn cache
+          keys:
+            - v1-test-job-cache-yarn-{{ checksum "yarn.lock" }}
+            - v1-test-job-cache-yarn-
       - run:
-          name: Bundle Install
+          name: Bundle install
           command: bundle install --path=vendor/bundle
       - save_cache:
+          name: Save bundle cache
           key: v1-test-job-cache-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
+          name: Yarn install
+          command: yarn install
+      - save_cache:
+          name: Save yarn cache
+          key: v1-test-job-cache-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - run:
           name: Wait for db
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
-          name: Database setup
+          name: Setup Database
           command: bin/rails db:create && bin/rails db:schema:load --trace
+      - run:
+          name: Setup Webpack
+          command: bin/webpack
       - run:
           name: Run rspec
           command: |

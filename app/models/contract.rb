@@ -1,6 +1,7 @@
 class Contract < ApplicationRecord
   belongs_to :user
   belongs_to :course
+  has_one :proposer, through: :course, source: :owner
 
   enum state: {
     applying: 0,
