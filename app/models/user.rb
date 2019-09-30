@@ -9,8 +9,8 @@ class User < ApplicationRecord
 
   scope :with_alive_contracts, -> (user_type: :mentee) {
     alive_state = [0, 1, 2] # applying, waiting_for_payment, under_contract
-    load_key = "#{user_type.to_s}_contracts"
-    eager_load(:mentee_contracts).where(contracts: { state: alive_state })
+    load_key = "#{user_type}_contracts"
+    eager_load(load_key).where(contracts: { state: alive_state })
   }
 
   mount_uploader :image, ImageUploader
