@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     end
     resources :mentees, only: %i[index]
     resources :mentors, only: %i[index]
+    resource :message_box, only: %i[show]
+    resources :messages, only: %i[index create destroy], path: "/:user_name/messages"
   end
 
   resources :plans, only: %i[show]
