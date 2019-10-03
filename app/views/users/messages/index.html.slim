@@ -5,9 +5,11 @@
   .card-body
     = form_with model: @message, url: users_messages_path(@message_user.name), local: true do |f|
       .form-group
-        = f.text_area :body, rows: 5, class: "form-control"
+        = f.text_area :body, rows: 5, class: "form-control #{'is-invalid' if f.object.errors.full_messages_for(:body).present?}"
+        - f.object.errors.full_messages_for(:body).each do |message|
+          .invalid-feedback = message
       .text-right
-        = f.submit class: "btn btn-warning"
+        = f.submit "送信する", class: "btn btn-warning"
 - @messages.each do |message|
   .card.mb-3
     .card-header.d-flex.align-items-center
