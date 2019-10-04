@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :mentees, only: %i[index]
     resources :mentors, only: %i[index]
     resource :message_box, only: %i[show]
+    # NOTE: GitHubのnameをUser#nameとして使用しているので一旦問題ないが
+    #       自分でnameを変更できるようにする場合、文字種を気をつける必要がある
     resources :messages, only: %i[index create destroy], path: "/:user_name/messages"
   end
 
