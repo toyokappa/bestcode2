@@ -7,6 +7,8 @@ module MarkdownHelper
   end
 
   def markdown(text)
+    return if text.blank?
+
     options = {
       filter_html: true,
       hard_wrap: true,
