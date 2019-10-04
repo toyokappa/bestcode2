@@ -1,10 +1,13 @@
-- current_user.messaging_user.each do |user|
-  - latest_message = user.latest_message
-  = link_to users_messages_path(user.name), class: "mb-3 text-dark text-decoration-none" do
-    .card
-      .card-body
-        .d-flex.align-items-center
-          .mr-2 = image_tag user.image.thumb.url, class: "image-rounded image-size-xs"
-          .mr-2 = user.display_name
-          .small = latest_message.created_at.to_s(:datetime)
-        .mt-2 = latest_message.body.truncate(60)
+- if current_user.messaging_user.present?
+  - current_user.messaging_user.each do |user|
+    - latest_message = user.latest_message
+    = link_to users_messages_path(user.name), class: "mb-3 text-dark text-decoration-none" do
+      .card
+        .card-body
+          .d-flex.align-items-center
+            .mr-2 = image_tag user.image.thumb.url, class: "image-rounded image-size-xs"
+            .mr-2 = user.display_name
+            .small = latest_message.created_at.to_s(:datetime)
+          .mt-2 = latest_message.body.truncate(60)
+- else
+  .text-center メッセージのやり取りはありません
