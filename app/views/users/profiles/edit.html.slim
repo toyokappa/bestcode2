@@ -1,11 +1,29 @@
 = form_with model: current_user, url: users_profile_path, local: true do |f|
   .form-group.row
-    = f.label :display_name, class: "col-sm-2 col-form-label"
+    .col-sm-2
+      = f.label :display_name, class: "col-form-label"
+      .badge.badge-danger.ml-2 必須
     .col-sm-10
-      = f.text_field :display_name, class: "form-control"
+      = f.text_field :display_name, class: "form-control", required: true
   .form-group.row
-    = f.label :image, class: "col-sm-2 col-form-label"
+    .col-sm-2
+      = f.label :image, class: "col-form-label"
     .col-sm-10
       = f.file_field :image, class: "form-control-file"
+  .form-group.row
+    .col-sm-2
+      = f.label :email, class: "col-form-label"
+    .col-sm-10
+      = f.object.email
+  .form-group.row
+    .col-sm-2
+      = f.label :introduction, class: "col-form-label"
+    .col-sm-10
+      = f.text_area :introduction, rows: 5, class: "form-control"
+  .form-group.row
+    .col-sm-2
+      = f.label :url, class: "col-form-label"
+    .col-sm-10
+      = f.url_field :url, class: "form-control"
   .action
     = f.submit class: "btn btn-warning"

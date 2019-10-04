@@ -13,6 +13,12 @@ class Users::ProfilesController < Users::ApplicationController
   private
 
     def user_paramas
-      params.require(:user).permit(:display_name, :image, :image_cache)
+      params.require(:user).permit(
+        :display_name,
+        :image,
+        :image_cache,
+        :introduction,
+        :url,
+      )
     end
 end
