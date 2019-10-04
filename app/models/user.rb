@@ -21,6 +21,10 @@ class User < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
+  def to_param
+    name
+  end
+
   class << self
     def find_or_create_by_omniauth(auth)
       user = find_by(provider: auth.provider, uid: auth.uid)

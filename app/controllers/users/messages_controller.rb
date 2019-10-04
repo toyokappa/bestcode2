@@ -15,7 +15,7 @@ class Users::MessagesController < Users::ApplicationController
     @message = current_user.sent_messages.build(message_params)
     @message.receiver = @message_user
     if @message.save
-      redirect_to users_messages_path(@message_user.name), success: "メッセージを送信しました"
+      redirect_to users_messages_path(@message_user), success: "メッセージを送信しました"
     else
       render :index
     end
@@ -24,7 +24,7 @@ class Users::MessagesController < Users::ApplicationController
   def destroy
     deletable_messages = @messages.where(sender: current_user)
     deletable_messages.find(params[:id]).destroy!
-    redirect_to users_messages_path(@message_user.name), success: "メッセージを削除しました"
+    redirect_to users_messages_path(@message_user), success: "メッセージを削除しました"
   end
 
   private

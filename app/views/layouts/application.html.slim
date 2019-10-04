@@ -18,6 +18,7 @@ html
                 = image_tag current_user.image.thumb.url, class: "nav-image"
               .dropdown-menu.dropdown-menu-right
                 = link_to "プラン作成", new_users_plan_path, class: "dropdown-item"
+                = link_to "プロフィール", profile_path(current_user), class: "dropdown-item"
                 = link_to "メッセージ", users_message_box_path, class: "dropdown-item"
                 = link_to "メンター", users_mentors_path, class: "dropdown-item"
                 = link_to "メンティー", users_mentees_path, class: "dropdown-item"

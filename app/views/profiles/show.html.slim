@@ -1,4 +1,7 @@
 .d-flex
   .mr-3 = image_tag @user.image_url, class: "image-rounded image-size-lg"
   h2 = @user.display_name
-  .ml-auto = link_to "メッセージを送る", users_messages_path(@user.name), class: "btn btn-warning"
+  .ml-auto = link_to "メッセージを送る", users_messages_path(@user), class: "btn btn-warning"
+- if @user == current_user
+  .text-right
+    = link_to "プロフィール編集", edit_users_profile_path, class: "text-warning"
