@@ -50,6 +50,6 @@ class User < ApplicationRecord
   end
 
   def latest_message
-    (sent_messages + received_messages).max_by {|message| message.created_at }
+    (sent_messages + received_messages).max_by(&:created_at)
   end
 end

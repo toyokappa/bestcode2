@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Message, type: :model do
   describe "validation" do
@@ -20,7 +20,7 @@ RSpec.describe Message, type: :model do
     let(:receiver) { create :user }
     let(:other_sender) { create :user }
     let(:other_receiver) { create :user }
-    
+
     before do
       create :message, sender: sender, receiver: receiver, body: "this is correct message"
       create :message, sender: sender, receiver: other_receiver, body: "this is wrong message with other receiver"

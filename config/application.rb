@@ -24,7 +24,7 @@ module Bestcode2
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
     config.i18n.default_locale = :ja
 
-    config.action_view.field_error_proc = Proc.new do |html_tag, _|
+    config.action_view.field_error_proc = proc do |html_tag, _|
       html_tag
     end
   end
