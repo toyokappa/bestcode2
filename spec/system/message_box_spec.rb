@@ -32,9 +32,12 @@ RSpec.describe "MessageBox", type: :system do
       end
 
       it "各ユーザーとの最新のメッセージが表示される" do
-        expect(page).not_to have_content "this message doesn't display."
         expect(page).to have_content "this message display!", count: 1
         expect(page).to have_content "this message display too!", count: 1
+      end
+
+      it "最新のメッセージ以外は表示されない" do
+        expect(page).not_to have_content "this message doesn't display."
       end
     end
   end

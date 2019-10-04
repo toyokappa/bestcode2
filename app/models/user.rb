@@ -6,8 +6,8 @@ class User < ApplicationRecord
   has_many :mentor_contracts, through: :own_courses, source: :contracts
   has_many :mentees, -> { distinct }, through: :mentor_contracts, source: :user
   has_many :mentors, -> { distinct }, through: :mentee_contracts, source: :proposer
-  has_many :sent_messages, dependent: :nullify, class_name: "Message", foreign_key: :sender_id
-  has_many :received_messages, dependent: :nullify, class_name: "Message", foreign_key: :receiver_id
+  has_many :sent_messages, dependent: :nullify, class_name: "Message", foreign_key: :sender_id, inverse_of: :sender
+  has_many :received_messages, dependent: :nullify, class_name: "Message", foreign_key: :receiver_id, inverse_of: :receiver
   has_many :message_sender, -> { distinct }, through: :received_messages, source: :sender
   has_many :message_receiver, -> { distinct }, through: :sent_messages, source: :receiver
 
