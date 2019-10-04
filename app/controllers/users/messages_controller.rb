@@ -1,5 +1,6 @@
 class Users::MessagesController < Users::ApplicationController
   before_action :find_message_user
+  before_action :verify_messagable_user
   before_action :list_messages
 
   def index
@@ -38,5 +39,9 @@ class Users::MessagesController < Users::ApplicationController
 
     def list_messages
       @messages = Message.exchange_between(current_user, @message_user).order(created_at: :desc).includes(:sender)
+    end
+
+    def verify_messagable_user
+      redirect_to users_message_box_path if @message_user == current_user
     end
 end
