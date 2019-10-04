@@ -1,0 +1,11 @@
+= form_with model: current_user, url: users_profile_path, local: true do |f|
+  .form-group.row
+    = f.label :display_name, class: "col-sm-2 col-form-label"
+    .col-sm-10
+      = f.text_field :display_name, class: "form-control"
+  .form-group.row
+    = f.label :image, class: "col-sm-2 col-form-label"
+    .col-sm-10
+      = f.file_field :image, class: "form-control-file"
+  .action
+    = f.submit class: "btn btn-warning"
