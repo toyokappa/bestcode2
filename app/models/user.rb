@@ -24,7 +24,7 @@ class User < ApplicationRecord
   URL_FMT = /\A#{URI::regexp(%w[http https])}\z/
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :display_name, presence: true
-  validates :url, format: { with: URL_FMT }
+  validates :url, format: { with: URL_FMT, allow_blank: true }
 
   def to_param
     name
