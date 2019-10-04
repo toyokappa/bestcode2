@@ -4,6 +4,30 @@ RSpec.describe "MessageExchange", type: :system do
   let(:sender) { create :user }
   let(:receiver) { create :user }
 
+  describe "ページアクセス" do
+    context "他のユーザーとのメッセージページへアクセスした場合" do
+      before do
+        sign_in sender
+        visit users_messages_path(receiver)
+      end
+
+      it "メッセージページへ遷移する" do
+        expect(current_path).to eq users_messages_path(receiver)
+      end
+    end
+
+    context "自分のメッセージページへアクセスした場合" do
+      before do
+        sign_in sender
+        visit users_messages_path(sender)
+      end
+
+      it "メッセージボックスページへリダイレクトされる" do
+        expect(current_path).to eq users_message_box_path
+      end
+    end
+  end
+
   describe "メッセージ投稿" do
     before do
       sign_in sender
