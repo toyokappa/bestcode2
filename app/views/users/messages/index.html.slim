@@ -1,0 +1,23 @@
+.card.mb-3
+  .card-header
+    div #{@message_user.display_name}さんにメッセージを送る
+    .text-sm 5000文字以内。Markdown記法で送信することもできます。
+  .card-body
+    = form_with model: @message, url: users_messages_path(@message_user.name), local: true do |f|
+      .form-group
+        = f.text_area :body, rows: 5, class: "form-control #{'is-invalid' if f.object.errors.full_messages_for(:body).present?}"
+        - f.object.errors.full_messages_for(:body).each do |message|
+          .invalid-feedback = message
+      .text-right
+        = f.submit "送信する", class: "btn btn-warning"
+- @messages.each do |message|
+  .card.mb-3
+    .card-header.d-flex.align-items-center
+      .mr-2 = image_tag message.sender.image.thumb.url, class: "image-rounded image-size-xs"
+      .mr-2 = message.sender_name
+      .small.mr-2 = message.created_at.to_s(:datetime)
+      - if message.sender == current_user
+        .small.text-muted = message.is_already_read? ? "既読" : "未読"
+        .ml-auto = link_to "削除", users_message_path(@message_user.name, message), method: :delete, class: "small text-muted", data: { confirm: "本当に削除しますか？" }
+    .card-body
+      .markdown-body = markdown message.body

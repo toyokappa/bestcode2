@@ -1,0 +1,5 @@
+ja:
+  activerecord:
+    attributes:
+      message:
+        body: メッセージ内容

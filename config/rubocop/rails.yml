@@ -48,3 +48,7 @@ Rails/UnknownEnv:
     - development # rubocop default.yml
     - test        # rubocop default.yml
     - production  # rubocop default.yml
+
+# update_allが使えなくなってしまうので追加
+Rails/SkipsModelValidations:
+  Enabled: false

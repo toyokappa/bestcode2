@@ -6,6 +6,10 @@ class User < ApplicationRecord
   has_many :mentor_contracts, through: :own_courses, source: :contracts
   has_many :mentees, -> { distinct }, through: :mentor_contracts, source: :user
   has_many :mentors, -> { distinct }, through: :mentee_contracts, source: :proposer
+  has_many :sent_messages, dependent: :nullify, class_name: "Message", foreign_key: :sender_id, inverse_of: :sender
+  has_many :received_messages, dependent: :nullify, class_name: "Message", foreign_key: :receiver_id, inverse_of: :receiver
+  has_many :message_sender, -> { distinct }, through: :received_messages, source: :sender
+  has_many :message_receiver, -> { distinct }, through: :sent_messages, source: :receiver
 
   scope :with_alive_contracts, ->(user_type: :mentee) {
     alive_state = [0, 1, 2] # applying, waiting_for_payment, under_contract
@@ -39,5 +43,13 @@ class User < ApplicationRecord
 
   def contracting?(course_id)
     contracted_courses.with_alive_contracts.exists?(course_id)
+  end
+
+  def messaging_user
+    (message_sender + message_receiver).uniq
+  end
+
+  def latest_message
+    (sent_messages + received_messages).max_by(&:created_at)
   end
 end
