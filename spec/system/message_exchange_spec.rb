@@ -12,7 +12,7 @@ RSpec.describe "MessageExchange", type: :system do
       end
 
       it "メッセージページへ遷移する" do
-        expect(current_path).to eq users_messages_path(receiver)
+        expect(page).to have_current_path users_messages_path(receiver)
       end
     end
 
@@ -23,7 +23,7 @@ RSpec.describe "MessageExchange", type: :system do
       end
 
       it "メッセージボックスページへリダイレクトされる" do
-        expect(current_path).to eq users_message_box_path
+        expect(page).to have_current_path users_message_box_path
       end
     end
   end

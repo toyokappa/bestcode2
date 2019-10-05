@@ -22,7 +22,7 @@ RSpec.describe "ProfileEdit", type: :system do
     context "自分以外のプロフィールページを訪れた場合" do
       let(:other_user) { create :user }
 
-      before do 
+      before do
         sign_in user
         visit profile_path(other_user)
       end
@@ -53,7 +53,7 @@ RSpec.describe "ProfileEdit", type: :system do
       let(:url) { "https://example.com" }
 
       it "プロフィールが更新される" do
-        expect(current_path).to eq profile_path(user)
+        expect(page).to have_current_path profile_path(user)
         expect(page).to have_content "テスト太郎"
         expect(page).to have_content "私の名前はテスト太郎です。"
       end
