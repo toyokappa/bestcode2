@@ -47,7 +47,7 @@ RSpec/InstanceVariable:
 # system spec等で複数の表示を確認する場合があるのでmaxを緩和。
 RSpec/MultipleExpectations:
   AggregateFailuresByDefault: true
-  Max: 2
+  Max: 3
 
 # 変に名前つけて呼ぶ方が分かりづらい。
 # テスト対象メソッドを呼ぶだけの subject 以外を書かないようにする方が効く。
