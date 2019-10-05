@@ -19,7 +19,16 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  delegate :name, to: :plan, prefix: :plan
+
+  URL_FMT = /\A#{URI.regexp(%w[http https])}\z/.freeze
   validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :display_name, presence: true
+  validates :url, format: { with: URL_FMT, allow_blank: true }
+
+  def to_param
+    name
+  end
 
   class << self
     def find_or_create_by_omniauth(auth)

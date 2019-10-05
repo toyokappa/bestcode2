@@ -2,18 +2,36 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "validation" do
-    before { create :user, name: "same_name" }
+    describe "#name" do
+      before { create :user, name: "same_name" }
 
-    it "user.nameはユニークである" do
-      actual_user = build(:user, name: "same_name")
-      actual_user.valid?
-      expect(actual_user.errors[:name]).to include("はすでに存在します")
+      it "ユニークである" do
+        actual_user = build(:user, name: "same_name")
+        actual_user.valid?
+        expect(actual_user.errors[:name]).to include("はすでに存在します")
+      end
+
+      it "ユニークであるが、大文字小文字は区別されない" do
+        actual_user = build(:user, name: "Same_Name")
+        actual_user.valid?
+        expect(actual_user.errors[:name]).to include("はすでに存在します")
+      end
     end
 
-    it "user.nameはユニークであるが、大文字小文字は区別されない" do
-      actual_user = build(:user, name: "Same_Name")
-      actual_user.valid?
-      expect(actual_user.errors[:name]).to include("はすでに存在します")
+    describe "#display_name" do
+      it "必須である" do
+        user = build(:user, display_name: nil)
+        user.valid?
+        expect(user.errors[:display_name]).to include("を入力してください")
+      end
+    end
+
+    describe "#url" do
+      it "形式が指定されている" do
+        user = build(:user, url: "inval.lid/urlexample")
+        user.valid?
+        expect(user.errors[:url]).to include("は不正な値です")
+      end
     end
   end
 

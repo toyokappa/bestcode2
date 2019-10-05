@@ -1,0 +1,17 @@
+.d-flex.mb-4
+  .mr-3 = image_tag @user.image_url, class: "image-rounded image-size-lg"
+  h2 = @user.display_name
+  - if @user == current_user
+    .ml-auto = link_to "メッセージを見る", users_message_box_path, class: "btn btn-warning"
+  - else
+    .ml-auto = link_to "メッセージを送る", users_messages_path(@user), class: "btn btn-warning"
+.card
+  - if @user == current_user
+    .card-header
+      .text-right
+        = link_to "プロフィール編集", edit_users_profile_path, class: "text-warning"
+  .card-body
+    .markdown-body = markdown @user.introduction
+    - if @user.plan.present?
+      h3 プラン
+      = link_to @user.plan_name, plan_path(@user.plan), class: "text-warning"

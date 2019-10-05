@@ -4,10 +4,34 @@ RSpec.describe "MessageExchange", type: :system do
   let(:sender) { create :user }
   let(:receiver) { create :user }
 
+  describe "ページアクセス" do
+    context "他のユーザーとのメッセージページへアクセスした場合" do
+      before do
+        sign_in sender
+        visit users_messages_path(receiver)
+      end
+
+      it "メッセージページへ遷移する" do
+        expect(page).to have_current_path users_messages_path(receiver)
+      end
+    end
+
+    context "自分のメッセージページへアクセスした場合" do
+      before do
+        sign_in sender
+        visit users_messages_path(sender)
+      end
+
+      it "メッセージボックスページへリダイレクトされる" do
+        expect(page).to have_current_path users_message_box_path
+      end
+    end
+  end
+
   describe "メッセージ投稿" do
     before do
       sign_in sender
-      visit users_messages_path(receiver.name)
+      visit users_messages_path(receiver)
       fill_in "message_body", with: body
       click_button "送信する"
     end
@@ -35,7 +59,7 @@ RSpec.describe "MessageExchange", type: :system do
     context "投稿したメッセージが相手に見られていない場合" do
       before do
         sign_in sender
-        visit users_messages_path(receiver.name)
+        visit users_messages_path(receiver)
       end
 
       it "未読が表示される" do
@@ -47,10 +71,10 @@ RSpec.describe "MessageExchange", type: :system do
     context "投稿したメッセージが相手に見られた場合" do
       before do
         sign_in receiver
-        visit users_messages_path(sender.name)
+        visit users_messages_path(sender)
         sign_out
         sign_in sender
-        visit users_messages_path(receiver.name)
+        visit users_messages_path(receiver)
       end
 
       it "既読が表示される" do

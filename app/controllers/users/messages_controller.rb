@@ -1,5 +1,6 @@
 class Users::MessagesController < Users::ApplicationController
   before_action :find_message_user
+  before_action :verify_messagable_user
   before_action :list_messages
 
   def index
@@ -14,7 +15,7 @@ class Users::MessagesController < Users::ApplicationController
     @message = current_user.sent_messages.build(message_params)
     @message.receiver = @message_user
     if @message.save
-      redirect_to users_messages_path(@message_user.name), success: "メッセージを送信しました"
+      redirect_to users_messages_path(@message_user), success: "メッセージを送信しました"
     else
       render :index
     end
@@ -23,7 +24,7 @@ class Users::MessagesController < Users::ApplicationController
   def destroy
     deletable_messages = @messages.where(sender: current_user)
     deletable_messages.find(params[:id]).destroy!
-    redirect_to users_messages_path(@message_user.name), success: "メッセージを削除しました"
+    redirect_to users_messages_path(@message_user), success: "メッセージを削除しました"
   end
 
   private
@@ -38,5 +39,9 @@ class Users::MessagesController < Users::ApplicationController
 
     def list_messages
       @messages = Message.exchange_between(current_user, @message_user).order(created_at: :desc).includes(:sender)
+    end
+
+    def verify_messagable_user
+      redirect_to users_message_box_path if @message_user == current_user
     end
 end
