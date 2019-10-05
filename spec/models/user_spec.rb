@@ -28,7 +28,7 @@ RSpec.describe User, type: :model do
 
     describe "#url" do
       it "形式が指定されている" do
-        user = build(:user, url: "invalid_url")
+        user = build(:user, url: "inval.lid/urlexample")
         user.valid?
         expect(user.errors[:url]).to include("は不正な値です")
       end

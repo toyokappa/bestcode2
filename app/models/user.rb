@@ -21,7 +21,7 @@ class User < ApplicationRecord
 
   delegate :name, to: :plan, prefix: :plan
 
-  URL_FMT = /\A#{URI::regexp(%w[http https])}\z/
+  URL_FMT = /\A#{URI.regexp(%w[http https])}\z/
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :display_name, presence: true
   validates :url, format: { with: URL_FMT, allow_blank: true }
