@@ -1,0 +1,23 @@
+- field_name = "plan[courses_attributes][#{i}]"
+.remove-target
+  .form-group.form-row
+    .col-md-6
+      = text_field_tag "#{field_name}[name]", resource&.name,
+        placeholder: Course.human_attribute_name(:name), class: "form-control"
+    .col-md-3
+    .col-md-3
+      .form-inline
+        = number_field_tag "#{field_name}[fee]", resource&.fee,
+          placeholder: Course.human_attribute_name(:fee), class: "form-control ml-auto"
+        span.ml-2 円/月
+  .form-group
+    = text_area_tag "#{field_name}[description]", resource&.description,
+      placeholder: Course.human_attribute_name(:description), rows: 5, class: "form-control"
+  .form-group.d-flex
+    .form-check.form-check-inline
+      = check_box_tag "#{field_name}[is_shot]", true, resource&.is_shot, class: "form-check-input"
+      = label_tag "#{field_name}[is_shot]", Course.human_attribute_name(:is_shot), class: "form-check-label"
+    .form-check.form-check-inline
+      = check_box_tag "#{field_name}[has_stopped]", true, resource&.has_stopped, class: "form-check-input"
+      = label_tag "#{field_name}[has_stopped]", Course.human_attribute_name(:has_stopped), class: "form-check-label"
+    .ml-auto = link_to "コースを削除", "javascript:void(0);", class: "text-muted remove-form-field"
