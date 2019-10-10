@@ -15,9 +15,13 @@
       placeholder: Course.human_attribute_name(:description), rows: 5, class: "form-control"
   .form-group.d-flex
     .form-check.form-check-inline
-      = check_box_tag "#{field_name}[is_shot]", true, resource&.is_shot, class: "form-check-input"
+      // チェックなしの場合に送信されない対策
+      = hidden_field_tag "#{field_name}[is_shot]", false, id: nil
+      = check_box_tag "#{field_name}[is_shot]", true, checked?(resource&.is_shot), class: "form-check-input"
       = label_tag "#{field_name}[is_shot]", Course.human_attribute_name(:is_shot), class: "form-check-label"
     .form-check.form-check-inline
-      = check_box_tag "#{field_name}[has_stopped]", true, resource&.has_stopped, class: "form-check-input"
+      // チェックなしの場合に送信されない対策
+      = hidden_field_tag "#{field_name}[has_stopped]", false, id: nil
+      = check_box_tag "#{field_name}[has_stopped]", true, checked?(resource&.has_stopped), class: "form-check-input"
       = label_tag "#{field_name}[has_stopped]", Course.human_attribute_name(:has_stopped), class: "form-check-label"
     .ml-auto = link_to "コースを削除", "javascript:void(0);", class: "text-muted remove-form-field"

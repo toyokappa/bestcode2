@@ -9,4 +9,6 @@ class Course < ApplicationRecord
     alive_state = %i[applying waiting_for_payment under_contract]
     eager_load(:contracts).where(contracts: { state: alive_state })
   }
+
+  validates :name, presence: true
 end
