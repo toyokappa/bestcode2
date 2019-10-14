@@ -1,5 +1,7 @@
 - field_name = "plan[courses_attributes][#{i}]"
 .remove-target
+  = hidden_field_tag "#{field_name}[id]", resource&.id
+  = hidden_field_tag "#{field_name}[_destroy]", false, class: "_destroy"
   .form-group.form-row
     .col-md-6
       = text_field_tag "#{field_name}[name]", resource&.name,
