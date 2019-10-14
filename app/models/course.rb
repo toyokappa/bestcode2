@@ -11,4 +11,5 @@ class Course < ApplicationRecord
   }
 
   validates :name, presence: true
+  validates :fee, presence: true, numericality: { greater_than_or_equal_to: 1000, allow_blank: true, message: "は1000円以上で設定してください" }
 end
