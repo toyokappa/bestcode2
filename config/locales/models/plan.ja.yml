@@ -4,3 +4,8 @@ ja:
       plan:
         name: タイトル
         description: できること
+  activemodel:
+    attributes:
+      plan:
+        name: タイトル
+        description: できること

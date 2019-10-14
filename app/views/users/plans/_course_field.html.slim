@@ -1,17 +1,24 @@
 - field_name = "plan[courses_attributes][#{i}]"
+- field_errors = f.object.courses[i]&.errors
 .remove-target
   = hidden_field_tag "#{field_name}[id]", resource&.id
   = hidden_field_tag "#{field_name}[_destroy]", false, class: "_destroy"
   .form-group.form-row
     .col-md-6
       = text_field_tag "#{field_name}[name]", resource&.name,
-        placeholder: Course.human_attribute_name(:name), class: "form-control"
+        placeholder: Course.human_attribute_name(:name), class: "form-control #{'is-invalid' if field_errors&.key?(:name)}"
+      - if field_errors&.key?(:name)
+        - field_errors[:name].each do |message|
+          .invalid-feedback = Course.human_attribute_name(:name) + message
     .col-md-3
     .col-md-3
       .form-inline
         = number_field_tag "#{field_name}[fee]", resource&.fee,
-          placeholder: Course.human_attribute_name(:fee), class: "form-control ml-auto"
+          placeholder: Course.human_attribute_name(:fee), class: "form-control ml-auto #{'is-invalid' if field_errors&.key?(:fee)}"
         span.ml-2 円/月
+        - if field_errors&.key?(:fee)
+          - field_errors[:fee].each do |message|
+            .invalid-feedback = Course.human_attribute_name(:fee) + message
   .form-group
     = text_area_tag "#{field_name}[description]", resource&.description,
       placeholder: Course.human_attribute_name(:description), rows: 5, class: "form-control"

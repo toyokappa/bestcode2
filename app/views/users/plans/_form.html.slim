@@ -1,13 +1,15 @@
 = form_with model: model, url: users_plan_path, local: true, class: "toggle-form-field" do |f|
   .form-group
     = f.label :name, Plan.human_attribute_name(:name)
-    = f.text_field :name, class: "form-control"
+    = f.text_field :name, class: "form-control #{invalid_field_with form: f, field: :name}"
+    - f.object.errors.full_messages_for(:name).each do |message|
+      .invalid-feedback = message
   .form-group
     = f.label :description, Plan.human_attribute_name(:description)
     = f.text_area :description, rows: 5, class: "form-control"
   h4 コース設定
   - f.object.courses.each_with_index do |course, i|
-    = render "course_field", i: i, resource: course
-  - field_data = additional_field_data(partial: "course_field")
+    = render "course_field", f: f, i: i, resource: course
+  - field_data = additional_field_data(form: f, partial: "course_field")
   = link_to "コースを追加", "javascript:void(0);", class: "btn btn-warning add-form-field mb-3", data: field_data
   .text-center = f.submit class: "btn btn-primary"
