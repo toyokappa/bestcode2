@@ -80,7 +80,16 @@ RSpec.describe "PlanCreate", type: :system do
     end
 
     context "コースが1件も登録されていない場合" do
+      before do
+        fill_in "plan_name", with: "テストプラン"
+        fill_in "plan_description", with: "これはテストで作成したプランです"
+        click_link "コースを削除"
+        click_button "登録する"
+      end
+
       it "プランは作成されない" do
+        expect(page).to have_current_path users_plan_path
+        expect(page).to have_content "コースを最低1件は登録してください"
       end
     end
 

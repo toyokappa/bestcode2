@@ -4,8 +4,10 @@ ja:
       plan:
         name: タイトル
         description: できること
+        courses: コース
   activemodel:
     attributes:
       plan:
         name: タイトル
         description: できること
+        courses: コース
