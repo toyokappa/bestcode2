@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :plan do
     name { "Test Plan" }
-    description { "test test test test" }
+    description { "This is test plan" }
     state { 1 }
     user
 
