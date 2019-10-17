@@ -7,7 +7,6 @@ class Users::PlansController < Users::ApplicationController
 
   def create
     plan = current_user.build_plan
-    plan.courses.build
     @form = PlanForm.new(plan)
     if @form.validate(plan_params)
       @form.save

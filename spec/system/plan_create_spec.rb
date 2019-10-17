@@ -50,6 +50,9 @@ RSpec.describe "PlanCreate", type: :system do
         expect(page).to have_current_path plan_path(user.plan)
         expect(page).to have_content "テストプラン"
         expect(page).to have_content "これはテストで作成したプランです"
+      end
+
+      it "正常にコースが作成される" do
         expect(page).to have_content "テストコース"
         expect(page).to have_content "1,000円"
         expect(page).to have_content "これはテストで作成したコースです"
@@ -75,7 +78,35 @@ RSpec.describe "PlanCreate", type: :system do
     end
 
     context "コースが2件登録されている場合" do
+      before do
+        fill_in "plan_name", with: "テストプラン"
+        fill_in "plan_description", with: "これはテストで作成したプランです"
+        fill_in "plan_courses_attributes_0_name", with: "テストコース1"
+        fill_in "plan_courses_attributes_0_fee", with: 1000
+        fill_in "plan_courses_attributes_0_description", with: "これはテストで作成したコースです"
+        click_link "コースを追加"
+        all("input[placeholder='コース名']")[1].set "テストコース2"
+        all("input[placeholder='料金']")[1].set 2000
+        all("textarea[placeholder='コース説明']")[1].set "これはテストで追加したコースです"
+        click_button "登録する"
+      end
+
       it "正常にプランが作成される" do
+        expect(page).to have_current_path plan_path(user.plan)
+        expect(page).to have_content "テストプラン"
+        expect(page).to have_content "これはテストで作成したプランです"
+      end
+
+      it "正常にコース1が作成される" do
+        expect(page).to have_content "テストコース1"
+        expect(page).to have_content "1,000円"
+        expect(page).to have_content "これはテストで作成したコースです"
+      end
+
+      it "正常にコース2が作成される" do
+        expect(page).to have_content "テストコース2"
+        expect(page).to have_content "2,000円"
+        expect(page).to have_content "これはテストで追加したコースです"
       end
     end
 
@@ -94,7 +125,36 @@ RSpec.describe "PlanCreate", type: :system do
     end
 
     context "コースの追加後に削除を行い登録した場合" do
-      it "削除したコースは登録されない" do
+      before do
+        fill_in "plan_name", with: "テストプラン"
+        fill_in "plan_description", with: "これはテストで作成したプランです"
+        fill_in "plan_courses_attributes_0_name", with: "テストコース1"
+        fill_in "plan_courses_attributes_0_fee", with: 1000
+        fill_in "plan_courses_attributes_0_description", with: "これはテストで作成したコースです"
+        click_link "コースを追加"
+        all("input[placeholder='コース名']")[1].set "テストコース2"
+        all("input[placeholder='料金']")[1].set 2000
+        all("textarea[placeholder='コース説明']")[1].set "これはテストで追加したコースです"
+        all(".remove-form-field")[1].click
+        click_button "登録する"
+      end
+
+      it "正常にプランが作成される" do
+        expect(page).to have_current_path plan_path(user.plan)
+        expect(page).to have_content "テストプラン"
+        expect(page).to have_content "これはテストで作成したプランです"
+      end
+
+      it "正常にコース1が作成される" do
+        expect(page).to have_content "テストコース1"
+        expect(page).to have_content "1,000円"
+        expect(page).to have_content "これはテストで作成したコースです"
+      end
+
+      it "コース2は作成されない" do
+        expect(page).not_to have_content "テストコース2"
+        expect(page).not_to have_content "2,000円"
+        expect(page).not_to have_content "これはテストで追加したコースです"
       end
     end
   end
