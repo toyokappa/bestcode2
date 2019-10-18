@@ -4,14 +4,14 @@
       = f.label :display_name, class: "col-form-label"
       .badge.badge-danger.ml-2 必須
     .col-sm-10
-      = f.text_field :display_name, class: "form-control #{'is-invalid' if f.object.errors.full_messages_for(:display_name).present?}", required: true
+      = f.text_field :display_name, class: "form-control #{invalid_field_with form: f, field: :display_name}", required: true
       - f.object.errors.full_messages_for(:display_name).each do |message|
         .invalid-feedback = message
   .form-group.row
     .col-sm-2
       = f.label :image, class: "col-form-label"
     .col-sm-10
-      = f.file_field :image, class: "form-control-file #{'is-invalid' if f.object.errors.full_messages_for(:image).present?}"
+      = f.file_field :image, class: "form-control-file #{invalid_field_with form: f, field: :image}"
       - f.object.errors.full_messages_for(:image).each do |message|
         .invalid-feedback = message
   .form-group.row
@@ -23,14 +23,14 @@
     .col-sm-2
       = f.label :introduction, class: "col-form-label"
     .col-sm-10
-      = f.text_area :introduction, rows: 5, class: "form-control #{'is-invalid' if f.object.errors.full_messages_for(:introduction).present?}"
+      = f.text_area :introduction, rows: 5, class: "form-control #{invalid_field_with form: f, field: :introduction}"
       - f.object.errors.full_messages_for(:introduction).each do |message|
         .invalid-feedback = message
   .form-group.row
     .col-sm-2
       = f.label :url, class: "col-form-label"
     .col-sm-10
-      = f.url_field :url, class: "form-control #{'is-invalid' if f.object.errors.full_messages_for(:url).present?}"
+      = f.url_field :url, class: "form-control #{invalid_field_with form: f, field: :url}"
       - f.object.errors.full_messages_for(:url).each do |message|
         .invalid-feedback = message
   .action

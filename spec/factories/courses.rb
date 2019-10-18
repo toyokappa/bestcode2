@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :course do
     name { "Test Course" }
-    description { "test test test test" }
+    description { "This is test course" }
     fee { 1000 }
     is_shot { false }
     has_stopped { false }

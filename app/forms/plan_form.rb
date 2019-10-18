@@ -1,13 +1,12 @@
 class PlanForm < Reform::Form
-  property :name, validates: { presence: true }
+  extend ActiveModel::ModelValidations
+  include NestedChildPopulator
+
+  property :name
   property :description
   property :state
 
-  collection :courses do
-    property :name, validates: { presence: true }
-    property :description
-    property :fee
-    property :is_shot
-    property :has_stopped
-  end
+  collection :courses, form: CourseForm, populator: :nested_child_populator
+
+  copy_validations_from Plan
 end

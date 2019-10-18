@@ -7,7 +7,6 @@ class Users::PlansController < Users::ApplicationController
 
   def create
     plan = current_user.build_plan
-    plan.courses.build
     @form = PlanForm.new(plan)
     if @form.validate(plan_params)
       @form.save
@@ -41,6 +40,19 @@ class Users::PlansController < Users::ApplicationController
   private
 
     def plan_params
-      params.require(:plan).permit(:name, :description, :state, courses_attributes: [:id, :name, :description, :fee, :is_shot, :has_stopped])
+      params.require(:plan).permit(
+        :name,
+        :description,
+        :state,
+        courses_attributes: [
+          :id,
+          :name,
+          :description,
+          :fee,
+          :is_shot,
+          :has_stopped,
+          :_destroy,
+        ],
+      )
     end
 end
