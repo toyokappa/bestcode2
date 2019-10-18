@@ -12,6 +12,6 @@ module FormHelper
 
   # バリデーションに引っかかった際の専用クラスを返す
   def invalid_field_with(form:, field:)
-    'is-invalid' if form.object.errors.full_messages_for(field).present?
+    "is-invalid" if form.object.errors.full_messages_for(field).present?
   end
 end

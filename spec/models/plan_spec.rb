@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe Plan, type: :model do
   describe "validation" do
-
     describe "#name" do
       let(:plan) { build :plan, name: nil }
       before { plan.valid? }

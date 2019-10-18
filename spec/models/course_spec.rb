@@ -14,13 +14,13 @@ RSpec.describe Course, type: :model do
     describe "#fee" do
       it "必須である" do
         course = build(:course, fee: nil)
-        course.valid? 
+        course.valid?
         expect(course.errors[:fee]).to include("を入力してください")
       end
 
       it "値は1000以上である必要がある" do
         course = build(:course, fee: 999)
-        course.valid? 
+        course.valid?
         expect(course.errors[:fee]).to include("は1000円以上で設定してください")
       end
     end
