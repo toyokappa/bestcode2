@@ -71,6 +71,9 @@ RSpec.describe "PlanCreate", type: :system do
 
       it "プランは作成されない" do
         expect(page).to have_current_path users_plan_path
+      end
+
+      it "該当の項目にエラーが表示される" do
         expect(page).to have_content "タイトルを入力してください"
         expect(page).to have_content "コース名を入力してください"
         expect(page).to have_content "料金は1000円以上で設定してください"
