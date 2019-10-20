@@ -55,8 +55,10 @@ ActiveRecord::Schema.define(version: 2019_10_18_221144) do
 
   create_table "resumes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.text "description"
-    t.date "start_date"
-    t.date "end_date"
+    t.integer "start_year"
+    t.integer "start_month"
+    t.integer "end_year"
+    t.integer "end_month"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
