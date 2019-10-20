@@ -19,6 +19,7 @@ gem "omniauth-github"
 # FormObject
 gem "reform"
 gem "reform-rails"
+gem "file_validators"
 
 # View
 gem "coderay"
