@@ -22,6 +22,15 @@ class Users::ProfilesController < Users::ApplicationController
         :image_cache,
         :introduction,
         :url,
+        resumes_attributes: [
+          :id,
+          :description,
+          :start_year,
+          :start_month,
+          :end_year,
+          :end_month,
+          :_destroy,
+        ],
       )
     end
 end

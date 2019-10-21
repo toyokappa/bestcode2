@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    attributes:
+      resume:
+        description: 詳細
+        period: 期間
+

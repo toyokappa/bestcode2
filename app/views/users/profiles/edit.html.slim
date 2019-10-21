@@ -1,4 +1,4 @@
-= form_with model: @form, url: users_profile_path, local: true do |f|
+= form_with model: @form, url: users_profile_path, local: true, class: "toggle-form-field" do |f|
   .form-group.row
     .col-sm-2
       = f.label :display_name, class: "col-form-label"
@@ -33,5 +33,10 @@
       = f.url_field :url, class: "form-control #{invalid_field_with form: f, field: :url}"
       - f.object.errors.full_messages_for(:url).each do |message|
         .invalid-feedback = message
+  h5.mt-5.mb-3 経歴・実績
+  - f.object.resumes.each_with_index do |resume, i|
+    = render "resume_field", f: f, i: i, resource: resume
+  - field_data = additional_field_data(form: f, partial: "resume_field")
+  = link_to "経歴・実績を追加", "javascript:void(0);", class: "btn btn-warning add-form-field mb-3", data: field_data
   .action
     = f.submit class: "btn btn-warning"

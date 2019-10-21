@@ -1,9 +1,12 @@
 require "reform/form/validation/unique_validator"
 
 class UserForm < ApplicationForm
+  include NestedChildPopulator
+
   property :name
   property :display_name
   property :image
+  property :image_cache
   property :email
   property :introduction
   property :url
