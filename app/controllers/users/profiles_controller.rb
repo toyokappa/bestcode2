@@ -5,7 +5,7 @@ class Users::ProfilesController < Users::ApplicationController
 
   def update
     @form = UserForm.new(current_user)
-    if @form.validate(user_paramas)
+    if @form.validate(user_params)
       @form.save
       redirect_to profile_path(current_user), success: "プロフィールを更新しました"
     else
@@ -15,7 +15,7 @@ class Users::ProfilesController < Users::ApplicationController
 
   private
 
-    def user_paramas
+    def user_params
       params.require(:user).permit(
         :display_name,
         :image,

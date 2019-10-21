@@ -1,6 +1,9 @@
 require "reform/form/validation/unique_validator"
 
 class UserForm < ApplicationForm
+  # 画像が勝手に保存されてしまう件の対策
+  # 参考: https://github.com/trailblazer/reform/issues/284#issuecomment-227743610
+  include Sync::SkipUnchanged
   include NestedChildPopulator
 
   property :name
