@@ -84,4 +84,73 @@ RSpec.describe "ProfileEdit", type: :system do
     #   end
     # end
   end
+
+  describe "経歴" do
+    describe "追加" do
+      before do
+        sign_in user
+        visit edit_users_profile_path
+        click_link "経歴・実績を追加"
+        find("textarea", id: /resumes_attributes_\d+_description/).set(description)
+        find("input", id: /resumes_attributes_\d+_start_year/).set(start_year)
+        find("input", id: /resumes_attributes_\d+_start_month/).set(start_month)
+        find("input", id: /resumes_attributes_\d+_end_year/).set(end_year)
+        find("input", id: /resumes_attributes_\d+_end_month/).set(end_month)
+        click_button "更新する"
+      end
+
+      context "正しく経歴を入力した場合" do
+        let(:description) { "テスト株式会社でエンジニアとして働いています" }
+        let(:start_year) { 2019 }
+        let(:start_month) { 10 }
+        let(:end_year) { 2019 }
+        let(:end_month) { 12 }
+
+        it "プロフィールが更新される" do
+          expect(page).to have_current_path profile_path(user)
+        end
+
+        it "経歴がプロフィールに表示される" do
+          expect(page).to have_content "テスト株式会社でエンジニアとして働いています"
+          expect(page).to have_content "2019年10月"
+          expect(page).to have_content "2019年12月"
+        end
+      end
+
+      context "経歴の詳細を入力せずに保存した場合" do
+        let(:description) { nil }
+        let(:start_year) { 2019 }
+        let(:start_month) { 10 }
+        let(:end_year) { 2019 }
+        let(:end_month) { 12 }
+
+        it "エラーメッセージが表示される" do
+          expect(page).to have_current_path users_profile_path
+          expect(page).to have_content "詳細を入力してください"
+        end
+      end
+    end
+
+    # FIXME: 削除のテストは一旦スキップ
+    #        ReformとCarrierWaveの相性が悪いので一旦フォーム周りを改修後に再度テスト
+    # describe "削除" do
+    #   context "経歴を削除し保存した場合" do
+    #     before do
+    #       create :resume, user: user, description: "hogehoge Meetupで登壇しました"
+    #       sign_in user
+    #       visit edit_users_profile_path
+    #       click_link "経歴・実績を削除"
+    #       click_button "更新する"
+    #     end
+
+    #     it "プロフィールが更新される" do
+    #       expect(page).to have_current_path profile_path(user)
+    #     end
+
+    #     it "削除した経歴は表示されない" do
+    #       expect(page).not_to have_content "hogehoge Meetupで登壇しました"
+    #     end
+    #   end
+    # end
+  end
 end
