@@ -34,9 +34,9 @@
       - f.object.errors.full_messages_for(:url).each do |message|
         .invalid-feedback = message
   h5.mt-5.mb-3 経歴・実績
-  - f.object.resumes.each_with_index do |resume, i|
-    = render "resume_field", f: f, i: i, resource: resume
-  - field_data = additional_field_data(form: f, partial: "resume_field")
+  = f.fields_for :resumes do |resume_form|
+    = render "resume_field", f: resume_form
+  - field_data = additional_field_data(form: f, children: :resumes)
   = link_to "経歴・実績を追加", "javascript:void(0);", class: "btn btn-warning add-form-field mb-3", data: field_data
   .action
     = f.submit class: "btn btn-warning"
