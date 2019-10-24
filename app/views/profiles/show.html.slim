@@ -12,6 +12,17 @@
         = link_to "プロフィール編集", edit_users_profile_path, class: "text-warning"
   .card-body
     .markdown-body = markdown @user.introduction
+    - if @user.resumes.present?
+      h3 経歴・実績
+      - @user.resumes.each do |resume|
+        .mb-3
+          .text-muted
+            - if resume.start_year.present? && resume.start_month.present?
+              span.mr-2 #{resume.start_year}年#{resume.start_month}月
+            - if resume.end_year.present? && resume.end_month.present?
+              span.mr-2 〜
+              span #{resume.end_year}年#{resume.end_month}月
+          = simple_format h(resume.description)
     - if @user.plan.present?
       h3 プラン
       = link_to @user.plan_name, plan_path(@user.plan), class: "text-warning"
