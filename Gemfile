@@ -17,7 +17,6 @@ gem "webpacker", "~> 4.0"
 gem "omniauth-github"
 
 # FormObject
-gem "file_validators"
 gem "reform"
 gem "reform-rails"
 
