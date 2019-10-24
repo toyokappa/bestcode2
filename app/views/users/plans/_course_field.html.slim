@@ -1,36 +1,27 @@
-- field_name = "plan[courses_attributes][#{i}]"
-- field_errors = f.object.courses[i]&.errors
 .remove-target
-  = hidden_field_tag "#{field_name}[id]", resource&.id
-  = hidden_field_tag "#{field_name}[_destroy]", false, class: "_destroy"
+  = f.hidden_field :id
+  = f.hidden_field :_destroy, class: "_destroy"
   .form-group.form-row
     .col-md-6
-      = text_field_tag "#{field_name}[name]", resource&.name,
-        placeholder: Course.human_attribute_name(:name), class: "form-control #{'is-invalid' if field_errors&.key?(:name)}"
-      - if field_errors&.key?(:name)
-        - field_errors[:name].each do |message|
-          .invalid-feedback = Course.human_attribute_name(:name) + message
+      = f.text_field :name, placeholder: Course.human_attribute_name(:name), class: "form-control #{invalid_field_with form: f, field: :name}"
+      - f.object.errors.full_messages_for(:name) do |message|
+        .invalid-feedback = message
     .col-md-3
     .col-md-3
       .form-inline
-        = number_field_tag "#{field_name}[fee]", resource&.fee,
-          placeholder: Course.human_attribute_name(:fee), class: "form-control ml-auto #{'is-invalid' if field_errors&.key?(:fee)}"
+        = f.number_field :fee, placeholder: Course.human_attribute_name(:fee), class: "form-control ml-auto #{invalid_field_with form: f, field: :fee}"
         span.ml-2 円/月
-        - if field_errors&.key?(:fee)
-          - field_errors[:fee].each do |message|
-            .invalid-feedback = Course.human_attribute_name(:fee) + message
+        - f.object.errors.full_messages_for(:fee) do |message|
+          .invalid-feedback = message
   .form-group
-    = text_area_tag "#{field_name}[description]", resource&.description,
-      placeholder: Course.human_attribute_name(:description), rows: 5, class: "form-control"
+    = f.text_area :description, placeholder: Course.human_attribute_name(:description), rows: 5, class: "form-control"
   .form-group.d-flex
     .form-check.form-check-inline
       // チェックなしの場合に送信されない対策
-      = hidden_field_tag "#{field_name}[is_shot]", false, id: nil
-      = check_box_tag "#{field_name}[is_shot]", true, checked?(resource&.is_shot), class: "form-check-input"
-      = label_tag "#{field_name}[is_shot]", Course.human_attribute_name(:is_shot), class: "form-check-label"
+      = f.check_box :is_shot, class: "form-check-input"
+      = f.label :is_shot, class: "form-check-label"
     .form-check.form-check-inline
       // チェックなしの場合に送信されない対策
-      = hidden_field_tag "#{field_name}[has_stopped]", false, id: nil
-      = check_box_tag "#{field_name}[has_stopped]", true, checked?(resource&.has_stopped), class: "form-check-input"
-      = label_tag "#{field_name}[has_stopped]", Course.human_attribute_name(:has_stopped), class: "form-check-label"
+      = f.check_box :has_stopped, class: "form-check-input"
+      = f.label :has_stopped, class: "form-check-label"
     .ml-auto = link_to "コースを削除", "javascript:void(0);", class: "text-muted remove-form-field"
