@@ -131,26 +131,24 @@ RSpec.describe "ProfileEdit", type: :system do
       end
     end
 
-    # FIXME: 削除のテストは一旦スキップ
-    #        ReformとCarrierWaveの相性が悪いので一旦フォーム周りを改修後に再度テスト
-    # describe "削除" do
-    #   context "経歴を削除し保存した場合" do
-    #     before do
-    #       create :resume, user: user, description: "hogehoge Meetupで登壇しました"
-    #       sign_in user
-    #       visit edit_users_profile_path
-    #       click_link "経歴・実績を削除"
-    #       click_button "更新する"
-    #     end
+    describe "削除" do
+      context "経歴を削除し保存した場合" do
+        before do
+          create :resume, user: user, description: "hogehoge Meetupで登壇しました"
+          sign_in user
+          visit edit_users_profile_path
+          click_link "経歴・実績を削除"
+          click_button "更新する"
+        end
 
-    #     it "プロフィールが更新される" do
-    #       expect(page).to have_current_path profile_path(user)
-    #     end
+        it "プロフィールが更新される" do
+          expect(page).to have_current_path profile_path(user)
+        end
 
-    #     it "削除した経歴は表示されない" do
-    #       expect(page).not_to have_content "hogehoge Meetupで登壇しました"
-    #     end
-    #   end
-    # end
+        it "削除した経歴は表示されない" do
+          expect(page).not_to have_content "hogehoge Meetupで登壇しました"
+        end
+      end
+    end
   end
 end

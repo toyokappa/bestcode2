@@ -1,12 +1,9 @@
 class Users::ProfilesController < Users::ApplicationController
   def edit
-    @form = UserForm.new(current_user)
   end
 
   def update
-    @form = UserForm.new(current_user)
-    if @form.validate(user_params)
-      @form.save
+    if current_user.update(user_params)
       redirect_to profile_path(current_user), success: "プロフィールを更新しました"
     else
       render :edit
