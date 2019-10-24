@@ -7,3 +7,11 @@ ja:
         email: メールアドレス
         introduction: 自己紹介
         url: URL
+  activemodel:
+    attributes:
+      user:
+        display_name: ユーザー名
+        image: アイコン
+        email: メールアドレス
+        introduction: 自己紹介
+        url: URL

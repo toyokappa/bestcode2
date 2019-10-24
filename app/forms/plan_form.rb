@@ -1,5 +1,4 @@
-class PlanForm < Reform::Form
-  extend ActiveModel::ModelValidations
+class PlanForm < ApplicationForm
   include NestedChildPopulator
 
   property :name

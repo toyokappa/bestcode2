@@ -1,6 +1,4 @@
-class CourseForm < Reform::Form
-  extend ActiveModel::ModelValidations
-
+class CourseForm < ApplicationForm
   property :name
   property :description
   property :fee
