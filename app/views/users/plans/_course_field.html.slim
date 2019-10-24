@@ -4,14 +4,14 @@
   .form-group.form-row
     .col-md-6
       = f.text_field :name, placeholder: Course.human_attribute_name(:name), class: "form-control #{invalid_field_with form: f, field: :name}"
-      - f.object.errors.full_messages_for(:name) do |message|
+      - f.object.errors.full_messages_for(:name).each do |message|
         .invalid-feedback = message
     .col-md-3
     .col-md-3
       .form-inline
         = f.number_field :fee, placeholder: Course.human_attribute_name(:fee), class: "form-control ml-auto #{invalid_field_with form: f, field: :fee}"
         span.ml-2 円/月
-        - f.object.errors.full_messages_for(:fee) do |message|
+        - f.object.errors.full_messages_for(:fee).each do |message|
           .invalid-feedback = message
   .form-group
     = f.text_area :description, placeholder: Course.human_attribute_name(:description), rows: 5, class: "form-control"
