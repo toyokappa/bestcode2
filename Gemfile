@@ -16,6 +16,9 @@ gem "webpacker", "~> 4.0"
 # Authentication
 gem "omniauth-github"
 
+# Model
+gem "enum_help"
+
 # View
 gem "coderay"
 gem "redcarpet"
