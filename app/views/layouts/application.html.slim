@@ -11,6 +11,8 @@ html
       nav.container
         .navbar-header
           = link_to "BestCode", root_path, class: "navbar-brand"
+        = form_with url: plans_path, method: :get, local: true do |f|
+          = f.text_field :keyword, value: params[:keyword], placeholder: "メンターを検索...", class: "form-control"
         ul.navbar-nav.ml-auto
           - if user_signed_in?
             li.nav-item.dropdown
