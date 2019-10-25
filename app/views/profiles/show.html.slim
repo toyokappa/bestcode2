@@ -12,6 +12,13 @@
         = link_to "プロフィール編集", edit_users_profile_path, class: "text-warning"
   .card-body
     .markdown-body = markdown @user.introduction
+    - if @user.skills.present?
+      h3 スキル
+      - @user.skills.each do |skill|
+        .mb-2
+          span.mr-3 = skill.name
+          span.mr-3.text-warning = "★" * skill.level_before_type_cast
+          span = skill.experience_i18n
     - if @user.resumes.present?
       h3 経歴・実績
       - @user.resumes.each do |resume|
