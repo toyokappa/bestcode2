@@ -10,8 +10,8 @@
   h4 コース設定
   - f.object.errors.full_messages_for(:courses).each do |message|
     .text-danger.mb-3 = message
-  - f.object.courses.each_with_index do |course, i|
-    = render "course_field", f: f, i: i, resource: course
-  - field_data = additional_field_data(form: f, partial: "course_field")
+  = f.fields_for :courses do |course_form|
+    = render "course_field", f: course_form
+  - field_data = additional_field_data(form: f, children: :courses)
   = link_to "コースを追加", "javascript:void(0);", class: "btn btn-warning add-form-field mb-3", data: field_data
   .text-center = f.submit class: "btn btn-primary"

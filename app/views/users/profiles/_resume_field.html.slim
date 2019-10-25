@@ -1,30 +1,26 @@
-- field_name = "user[resumes_attributes][#{i}]"
-- field_errors = f.object.resumes[i]&.errors
 .remove-target.mb-3
-  = hidden_field_tag "#{field_name}[id]", resource&.id
-  = hidden_field_tag "#{field_name}[_destroy]", false, class: "_destroy"
+  = f.hidden_field :id
+  = f.hidden_field :_destroy, class: "_destroy"
   .form-group.row
     .col-md-2
-      = label_tag "#{field_name}[description]", Resume.human_attribute_name(:description)
+      = f.label :description
     .col-md-10
-      = text_area_tag "#{field_name}[description]", resource&.description, rows: 3,
-        class: "form-control #{'is-invalid' if field_errors&.key?(:description)}"
-      - if field_errors&.key?(:description)
-        - field_errors[:description].each do |message|
-          .invalid-feedback = Resume.human_attribute_name(:description) + message
+      = f.text_area :description, rows: 3, class: "form-control #{invalid_field_with form: f, field: :description}"
+      - f.object.errors.full_messages_for(:description).each do |message|
+        .invalid-feedback = message
   .form-group.row
     .col-md-2
-      = label_tag "#{field_name}[start_date]", Resume.human_attribute_name(:period)
+      = f.label :start_year, Resume.human_attribute_name(:period)
     .col-md-10
       .form-inline
         - this_year = Time.current.year
-        = number_field_tag "#{field_name}[start_year]", resource&.start_year, min: this_year - 100, max: this_year,
-          placeholder: "年", class: "form-control mr-2 #{'is-invalid' if field_errors&.key?(:start_year)}"
-        = number_field_tag "#{field_name}[start_month]", resource&.start_month, min: 1, max: 12,
-          placeholder: "月", class: "form-control #{'is-invalid' if field_errors&.key?(:start_month)}"
+        = f.number_field :start_year, min: this_year - 100, max: this_year, placeholder: "年",
+          class: "form-control mr-2 #{invalid_field_with form: f, field: :start_year}"
+        = f.number_field :start_month, min: 1, max: 12, placeholder: "月",
+          class: "form-control #{invalid_field_with form: f, field: :start_month}"
         .mx-3 ~
-        = number_field_tag "#{field_name}[end_year]", resource&.end_year, min: this_year - 100, max: this_year,
-          placeholder: "年", class: "form-control mr-2 #{'is-invalid' if field_errors&.key?(:end_year)}"
-        = number_field_tag "#{field_name}[end_month]", resource&.end_month, min: 1, max: 12,
-          placeholder: "月", class: "form-control #{'is-invalid' if field_errors&.key?(:end_month)}"
+        = f.number_field :end_year, min: this_year - 100, max: this_year, placeholder: "年",
+          class: "form-control mr-2 #{invalid_field_with form: f, field: :end_year}"
+        = f.number_field :end_month, min: 1, max: 12, placeholder: "月",
+          class: "form-control #{invalid_field_with form: f, field: :end_month}"
         .ml-auto = link_to "経歴・実績を削除", "javascript:void(0);", class: "text-muted remove-form-field"

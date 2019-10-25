@@ -1,16 +1,13 @@
 class Users::PlansController < Users::ApplicationController
   def new
-    plan = current_user.build_plan
-    plan.courses.build
-    @form = PlanForm.new(plan)
+    @plan = current_user.build_plan
+    @plan.courses.build
   end
 
   def create
-    plan = current_user.build_plan
-    @form = PlanForm.new(plan)
-    if @form.validate(plan_params)
-      @form.save
-      redirect_to plan, success: "プランを作成しました"
+    @plan = current_user.build_plan(plan_params)
+    if @plan.save
+      redirect_to @plan, success: "プランを作成しました"
     else
       render :new
     end
@@ -18,14 +15,11 @@ class Users::PlansController < Users::ApplicationController
 
   def edit
     @plan = current_user.plan
-    @form = PlanForm.new(@plan)
   end
 
   def update
     @plan = current_user.plan
-    @form = PlanForm.new(@plan)
-    if @form.validate(plan_params)
-      @form.save
+    if @plan.update(plan_params)
       redirect_to @plan, success: "プランを更新しました"
     else
       render :edit

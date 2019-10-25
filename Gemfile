@@ -16,11 +16,6 @@ gem "webpacker", "~> 4.0"
 # Authentication
 gem "omniauth-github"
 
-# FormObject
-gem "file_validators"
-gem "reform"
-gem "reform-rails"
-
 # View
 gem "coderay"
 gem "redcarpet"
