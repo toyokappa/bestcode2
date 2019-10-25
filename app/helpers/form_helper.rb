@@ -1,6 +1,6 @@
 module FormHelper
   # JSでフォームフィールドを追加するためのHTMLと仮のindexのハッシュを返す
-  def additional_field_data(form: , children:, index: Time.zone.now.to_i)
+  def additional_field_data(form:, children:, index: Time.zone.now.to_i)
     child = form.object.send(children).new
     field = form.fields_for(children, child, child_index: index) do |f|
       render("#{children.to_s.singularize}_field", f: f)
