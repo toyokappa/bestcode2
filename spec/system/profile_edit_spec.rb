@@ -85,6 +85,74 @@ RSpec.describe "ProfileEdit", type: :system do
     # end
   end
 
+  describe "スキル" do
+    describe "追加" do
+      before do
+        sign_in user
+        visit edit_users_profile_path
+        click_link "スキルを追加"
+        find("input", id: /skills_attributes_\d+_name/).set(name)
+        find("select", id: /skills_attributes_\d+_level/).find("option[value='#{level}']").select_option
+        find("select", id: /skills_attributes_\d+_experience/).find("option[value='#{experience}']").select_option
+        click_button "更新する"
+      end
+
+      context "正しく経歴を入力した場合" do
+        let(:name) { "Rails" }
+        let(:level) { "novice" }
+        let(:experience) { "under_half_years" }
+
+        it "プロフィールが更新される" do
+          expect(page).to have_current_path profile_path(user)
+        end
+
+        it "スキルがプロフィールに表示される" do
+          expect(page).to have_content "Rails"
+          expect(page).to have_content "★★"
+          expect(page).to have_content "半年未満"
+        end
+      end
+
+      context "スキルの入力せずに保存した場合" do
+        let(:name) { nil }
+        let(:level) { nil }
+        let(:experience) { nil }
+
+        it "プロフィールは更新されない" do
+          expect(page).to have_current_path users_profile_path
+        end
+
+        it "エラーメッセージが表示される" do
+          expect(page).to have_content "スキル名を入力してください"
+          expect(page).to have_content "レベルを入力してください"
+          expect(page).to have_content "経験年数を入力してください"
+        end
+      end
+    end
+
+    describe "削除" do
+      context "スキルを削除し保存した場合" do
+        before do
+          create :skill, user: user, name: "Ruby on Rails", level: 5, experience: 5
+          sign_in user
+          visit edit_users_profile_path
+          click_link "スキルを削除"
+          click_button "更新する"
+        end
+
+        it "プロフィールが更新される" do
+          expect(page).to have_current_path profile_path(user)
+        end
+
+        it "削除したスキルは表示されない" do
+          expect(page).not_to have_content "Ruby on Rails"
+          expect(page).not_to have_content "★★★★★"
+          expect(page).not_to have_content "5年以上"
+        end
+      end
+    end
+  end
+
   describe "経歴" do
     describe "追加" do
       before do
