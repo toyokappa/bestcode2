@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    attributes:
+      skill:
+        name: スキル名
+        level: レベル
+        experience: 経験年数
+  enums:
+    skill:
+      level:
+        beginner: ビギナー　★
+        novice: ノービス　★★
+        middle: ミドル　★★★
+        expert: エキスパート　★★★★
+        master: マスター　★★★★★
+      experience:
+        under_half_years: 半年未満
+        under_1_year: 1年未満
+        under_3_years: 3年未満
+        under_5_years: 5年未満
+        over_5_years: 5年以上

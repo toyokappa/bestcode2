@@ -14,7 +14,7 @@ class Skill < ApplicationRecord
   }, _prefix: true
 
   enum experience: {
-    under_half_year: 1,
+    under_half_years: 1,
     under_1_year: 2,
     under_3_years: 3,
     under_5_years: 4,
