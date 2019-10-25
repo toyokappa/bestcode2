@@ -33,10 +33,15 @@
       = f.url_field :url, class: "form-control #{invalid_field_with form: f, field: :url}"
       - f.object.errors.full_messages_for(:url).each do |message|
         .invalid-feedback = message
+  h5.mt-5.mb-3 スキル
+  = f.fields_for :skills do |skill_form|
+    = render "skill_field", f: skill_form
+  - skill_field_data = additional_field_data(form: f, children: :skills)
+  = link_to "スキルを追加", "javascript:void(0);", class: "btn btn-warning add-form-field mb-3", data: skill_field_data
   h5.mt-5.mb-3 経歴・実績
   = f.fields_for :resumes do |resume_form|
     = render "resume_field", f: resume_form
-  - field_data = additional_field_data(form: f, children: :resumes)
-  = link_to "経歴・実績を追加", "javascript:void(0);", class: "btn btn-warning add-form-field mb-3", data: field_data
+  - resume_field_data = additional_field_data(form: f, children: :resumes)
+  = link_to "経歴・実績を追加", "javascript:void(0);", class: "btn btn-warning add-form-field mb-3", data: resume_field_data
   .action
     = f.submit class: "btn btn-warning"

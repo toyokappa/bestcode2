@@ -11,8 +11,10 @@ class User < ApplicationRecord
   has_many :message_sender, -> { distinct }, through: :received_messages, source: :sender
   has_many :message_receiver, -> { distinct }, through: :sent_messages, source: :receiver
   has_many :resumes, dependent: :destroy
+  has_many :skills, dependent: :destroy
 
   accepts_nested_attributes_for :resumes, allow_destroy: true
+  accepts_nested_attributes_for :skills, allow_destroy: true
 
   scope :with_alive_contracts, ->(user_type: :mentee) {
     alive_state = [0, 1, 2] # applying, waiting_for_payment, under_contract

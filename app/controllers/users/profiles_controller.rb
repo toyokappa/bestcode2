@@ -12,7 +12,7 @@ class Users::ProfilesController < Users::ApplicationController
 
   private
 
-    def user_params
+    def user_params # rubocop:disable Metrics/MethodLength
       params.require(:user).permit(
         :display_name,
         :image,
@@ -26,6 +26,13 @@ class Users::ProfilesController < Users::ApplicationController
           :start_month,
           :end_year,
           :end_month,
+          :_destroy,
+        ],
+        skills_attributes: [
+          :id,
+          :name,
+          :level,
+          :experience,
           :_destroy,
         ],
       )
