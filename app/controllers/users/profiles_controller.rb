@@ -28,6 +28,13 @@ class Users::ProfilesController < Users::ApplicationController
           :end_month,
           :_destroy,
         ],
+        skills_attributes: [
+          :id,
+          :name,
+          :level,
+          :experience,
+          :_destroy,
+        ],
       )
     end
 end
