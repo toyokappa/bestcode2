@@ -4,6 +4,7 @@ RSpec.describe "PlanEdit", type: :system do
   let(:plan) { create :plan }
 
   before do
+    create :course, plan: plan
     sign_in plan.user
     visit edit_users_plan_path
   end
