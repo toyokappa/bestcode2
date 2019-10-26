@@ -37,9 +37,9 @@ RSpec.describe "PlanEdit", type: :system do
       click_button "更新する"
     end
 
-    it "プランは更新されない" do
-      expect(page).to have_current_path users_plan_path
-      expect(page).to have_content "コースを最低1件は登録してください"
+    it "正常にプランが更新される" do
+      expect(page).to have_current_path plan_path(plan)
+      expect(page).to have_content "現在開講中のコースはありません"
     end
   end
 
