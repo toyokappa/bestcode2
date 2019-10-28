@@ -1,2 +1,3 @@
-- @plans.each do |plan|
-  p = link_to plan.name, plan_path(plan)
+.list-group
+  - @plans.each do |plan|
+    = render "plans/plan", plan: plan
