@@ -14,8 +14,8 @@ RSpec.describe Plan, type: :model do
 
   describe "scope" do
     describe ".search" do
-      let!(:plan1) { create :plan, name: "hoge", description: "fuga" }
-      let!(:plan2) { create :plan, name: "xxxx", description: "yyyy" }
+      let(:plan1) { create :plan, name: "hoge", description: "fuga" }
+      let(:plan2) { create :plan, name: "xxxx", description: "yyyy" }
 
       before do
         create :plan, name: "oraora", description: "mudamuda"

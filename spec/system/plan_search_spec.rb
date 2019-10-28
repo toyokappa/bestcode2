@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "PlanSearch", type: :system do
-  let!(:plan1) { create :plan, name: "Railsエンジニアに転職する方法教えます", description: "私はリモートで働いています。" }
-  let!(:plan2) { create :plan, name: "エンジニアとして即戦力で働く方法をレクチャーします" }
-  let!(:plan3) { create :plan, name: "副業で月5万円稼ぐための学習サポート" }
+  let(:plan1) { create :plan, name: "Railsエンジニアに転職する方法教えます", description: "私はリモートで働いています。" }
+  let(:plan2) { create :plan, name: "エンジニアとして即戦力で働く方法をレクチャーします" }
+  let(:plan3) { create :plan, name: "副業で月5万円稼ぐための学習サポート" }
 
   before do
     create :plan, name: "リモートワークでの働き方を伝授"
