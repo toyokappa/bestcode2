@@ -28,6 +28,7 @@ gem "carrierwave"
 gem "mini_magick"
 
 group :development, :test do
+  gem "bullet"
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-byebug"
@@ -37,7 +38,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "bullet"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "rubocop", require: false
   gem "rubocop-performance", require: false
