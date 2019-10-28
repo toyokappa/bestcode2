@@ -39,7 +39,7 @@ RSpec.describe "PlanSearch", type: :system do
   end
 
   context "1件も検索に引っかからなかった場合" do
-    let(:keyword) { 'hogehoge' }
+    let(:keyword) { "hogehoge" }
 
     it "メンターが見つからない旨のメッセージが表示される" do
       expect(page).not_to have_content "人のメンターが見つかりました"
