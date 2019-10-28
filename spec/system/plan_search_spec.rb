@@ -37,4 +37,13 @@ RSpec.describe "PlanSearch", type: :system do
       expect(page).to have_content "10人のメンターが見つかりました"
     end
   end
+
+  context "1件も検索に引っかからなかった場合" do
+    let(:keyword) { 'hogehoge' }
+
+    it "メンターが見つからない旨のメッセージが表示される" do
+      expect(page).not_to have_content "人のメンターが見つかりました"
+      expect(page).to have_content "メンターが見つかりませんでした"
+    end
+  end
 end
