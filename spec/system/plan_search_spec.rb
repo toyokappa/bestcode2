@@ -1,16 +1,16 @@
 require "rails_helper"
 
 RSpec.describe "PlanSearch", type: :system do
-  let!(:plan1) { create :plan, name: "リモートワークでの働き方を伝授" }
-  let!(:plan2) { create :plan, name: "Railsエンジニアに転職する方法教えます", description: "私はリモートで働いています。" }
-  let!(:plan3) { create :plan, name: "エンジニアとして即戦力で働く方法をレクチャーします" }
-  let!(:plan4) { create :plan, name: "副業で月5万円稼ぐための学習サポート" }
+  let!(:plan1) { create :plan, name: "Railsエンジニアに転職する方法教えます", description: "私はリモートで働いています。" }
+  let!(:plan2) { create :plan, name: "エンジニアとして即戦力で働く方法をレクチャーします" }
+  let!(:plan3) { create :plan, name: "副業で月5万円稼ぐための学習サポート" }
 
   before do
+    create :plan, name: "リモートワークでの働き方を伝授"
     create_list :plan, 6
-    create :course, plan: plan2
-    create :course, plan: plan3, name: "リモートコース"
-    create :course, plan: plan4, description: "リモートによるビデオチャットでの受講となります"
+    create :course, plan: plan1
+    create :course, plan: plan2, name: "リモートコース"
+    create :course, plan: plan3, description: "リモートによるビデオチャットでの受講となります"
     visit root_path
     fill_in "keyword", with: "#{keyword}\n"
   end
