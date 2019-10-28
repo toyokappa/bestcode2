@@ -1,0 +1,17 @@
+.list-group-item
+  .d-flex
+    .mr-3 = image_tag plan.user.image.thumb.url, class: "image-size-lg image-rounded"
+    .plan
+      h5 = link_to plan.user.display_name, profile_path(plan.user), class: "text-warning"
+      h4.font-weight-bold = link_to plan.name, plan_path(plan), class: "text-dark"
+      span.mr-2 評価
+      span.mr-4
+        - if true # TODO: 評価機能を実装後に着手
+          .d-inline.text-warning ★★★★★
+        - else
+          .d-inline.font-weight-bold -
+      span.mr-2 料金
+      - if plan.courses.present?
+        span = "#{plan.courses.pluck(:fee).min.to_s(:delimited)}円#{plan.courses.length == 2 ? '〜' : ''}"
+      - else
+        .d-inline.font-weight-bold -

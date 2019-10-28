@@ -121,9 +121,9 @@ RSpec.describe "PlanCreate", type: :system do
         click_button "登録する"
       end
 
-      it "プランは作成されない" do
-        expect(page).to have_current_path users_plan_path
-        expect(page).to have_content "コースを最低1件は登録してください"
+      it "正常にプランが作成される" do
+        expect(page).to have_current_path plan_path(user.plan)
+        expect(page).to have_content "現在開講中のコースはありません"
       end
     end
 

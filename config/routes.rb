@@ -18,5 +18,5 @@ Rails.application.routes.draw do
   end
 
   get "/:user_name/profile", to: "profiles#show", as: :profile
-  resources :plans, only: %i[show]
+  resources :plans, only: %i[index show]
 end

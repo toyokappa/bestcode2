@@ -10,13 +10,38 @@ RSpec.describe Plan, type: :model do
         expect(plan.errors[:name]).to include("を入力してください")
       end
     end
+  end
 
-    describe "#courses" do
-      let(:plan) { build :plan, :with_no_courses }
-      before { plan.valid? }
+  describe "scope" do
+    describe ".search" do
+      let(:plan1) { create :plan, name: "hoge", description: "fuga" }
+      let(:plan2) { create :plan, name: "xxxx", description: "yyyy" }
 
-      it "最低1件の登録が必須である" do
-        expect(plan.errors[:courses]).to include("を最低1件は登録してください")
+      before do
+        create :plan, name: "oraora", description: "mudamuda"
+        create :course, plan: plan1, name: "aaaa", description: "bbbb"
+        create :course, plan: plan2, name: "hogehoge", description: "piyopiyo"
+      end
+
+      context "hogeというキーワードを入力した場合" do
+        it "2件のプランが返される" do
+          plans = Plan.search("hoge")
+          expect(plans.count).to eq 2
+        end
+      end
+
+      context "zzzzというキーワードを入力した場合" do
+        it "1件のプランが返される" do
+          plans = Plan.search("zzzz")
+          expect(plans.count).to eq 0
+        end
+      end
+
+      context "キーワードを入力しなかった場合" do
+        it "すべてのプランが返される" do
+          plans = Plan.search
+          expect(plans.count).to eq 3
+        end
       end
     end
   end
