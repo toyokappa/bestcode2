@@ -8,8 +8,8 @@ class User < ApplicationRecord
   has_many :mentors, -> { distinct }, through: :mentee_contracts, source: :proposer
   has_many :sent_messages, dependent: :nullify, class_name: "Message", foreign_key: :sender_id, inverse_of: :sender
   has_many :received_messages, dependent: :nullify, class_name: "Message", foreign_key: :receiver_id, inverse_of: :receiver
-  has_many :message_sender, -> { distinct }, through: :received_messages, source: :sender
-  has_many :message_receiver, -> { distinct }, through: :sent_messages, source: :receiver
+  has_many :message_senders, -> { distinct }, through: :received_messages, source: :sender
+  has_many :message_receivers, -> { distinct }, through: :sent_messages, source: :receiver
   has_many :resumes, dependent: :destroy
   has_many :skills, dependent: :destroy
 
@@ -59,8 +59,8 @@ class User < ApplicationRecord
     contracted_courses.with_alive_contracts.exists?(course_id)
   end
 
-  def messaging_user
-    (message_sender + message_receiver).uniq
+  def messaging_users
+    (message_senders + message_receivers).uniq
   end
 
   def latest_message
