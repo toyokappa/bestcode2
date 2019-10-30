@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
   def index
-    @plans = Plan.search(params[:keyword])
+    @plans = Plan.search(params[:keyword]).includes(:user, :courses)
   end
 
   def show
