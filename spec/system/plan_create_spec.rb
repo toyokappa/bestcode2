@@ -127,6 +127,28 @@ RSpec.describe "PlanCreate", type: :system do
       end
     end
 
+    context "コースが中止の状態で登録された場合" do
+      before do
+        fill_in "plan_name", with: "テストプラン"
+        fill_in "plan_description", with: "これはテストで作成したプランです"
+        fill_in "plan_courses_attributes_0_name", with: "中止コース"
+        fill_in "plan_courses_attributes_0_fee", with: 1000
+        fill_in "plan_courses_attributes_0_description", with: "このコースは中止状態です"
+        check "中止"
+        click_button "登録する"
+      end
+
+      it "正常にプランが作成される" do
+        expect(page).to have_current_path plan_path(user.plan)
+      end
+
+      it "中止状態のコースは表示されない" do
+        expect(page).not_to have_content "中止コース"
+        expect(page).not_to have_content "1,000円"
+        expect(page).not_to have_content "このコースは中止状態です"
+      end
+    end
+
     context "コースの追加後に削除を行い登録した場合" do
       before do
         fill_in "plan_name", with: "テストプラン"
