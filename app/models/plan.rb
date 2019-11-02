@@ -15,6 +15,8 @@ class Plan < ApplicationRecord
       courses.name LIKE :keyword OR
       courses.description LIKE :keyword
     SQL
-    eager_load(:courses).where(sql, keyword: "%#{keyword}%")
+    eager_load(:courses).
+      where(sql, keyword: "%#{keyword}%").
+      where(courses: { has_stopped: [false, nil] }) # nil -> コースが１件もない場合を考慮
   end
 end

@@ -3,8 +3,8 @@ h2.font-weight-bold.text-warning.mb-3 できること
 .markdown-body = markdown @plan.description
 .mt-5
   h3.font-weight-bold.text-warning.mb-3 コース
-  - if @plan.courses.present?
-    - @plan.courses.each do |course|
+  - if @courses.present?
+    - @courses.each do |course|
       h4.font-weight-bold = course.name
       .badge.badge-warning.mb-3 #{course.fee.to_s(:delimited)}円/月
       .markdown-body = markdown course.description

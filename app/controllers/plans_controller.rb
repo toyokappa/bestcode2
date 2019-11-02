@@ -5,5 +5,6 @@ class PlansController < ApplicationController
 
   def show
     @plan = Plan.find(params[:id])
+    @courses = @plan.courses.where(has_stopped: false)
   end
 end
