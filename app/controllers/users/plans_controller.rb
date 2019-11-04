@@ -24,6 +24,8 @@ class Users::PlansController < Users::ApplicationController
     else
       render :edit
     end
+  rescue ActiveRecord::RecordNotDestroyed # 契約中のコースを削除した場合の例外
+    render :edit
   end
 
   def destroy

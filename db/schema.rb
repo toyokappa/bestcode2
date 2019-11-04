@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 2019_10_25_110020) do
 
   create_table "contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "course_id", null: false
+    t.integer "user_id"
+    t.integer "course_id"
     t.integer "state", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

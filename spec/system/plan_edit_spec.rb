@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe "PlanEdit", type: :system do
   let(:plan) { create :plan }
+  let!(:course) { create :course, plan: plan }
 
   before do
-    create :course, plan: plan
     sign_in plan.user
     visit edit_users_plan_path
   end
@@ -88,6 +88,39 @@ RSpec.describe "PlanEdit", type: :system do
       expect(page).to have_content "テストコース2"
       expect(page).to have_content "2,000円"
       expect(page).to have_content "これはテストで追加したコースです"
+    end
+  end
+
+  context "契約中のユーザーが存在するコースを削除した場合" do
+    let(:mentee) { create :user }
+
+    before do
+      create :contract, user: mentee, course: course
+      click_link "コースを削除"
+      click_button "更新する"
+    end
+
+    it "プランは更新されない" do
+      expect(page).to have_current_path users_plan_path
+    end
+
+    it "エラーが表示される" do
+      expect(page).to have_content "契約中のユーザーが存在する場合、コースを削除できません"
+    end
+  end
+
+  context "契約が終了しているユーザーが存在するコースを削除した場合" do
+    let(:mentee) { create :user }
+
+    before do
+      create :contract, user: mentee, course: course, state: :finished
+      click_link "コースを削除"
+      click_button "更新する"
+    end
+
+    it "正常にプランが更新される" do
+      expect(page).to have_current_path plan_path(plan)
+      expect(page).to have_content "現在開講中のコースはありません"
     end
   end
 end
