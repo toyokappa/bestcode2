@@ -8,8 +8,6 @@
     = f.label :description, Plan.human_attribute_name(:description)
     = f.text_area :description, rows: 5, class: "form-control"
   h4 コース設定
-  - f.object.errors.full_messages_for(:courses).each do |message|
-    .text-danger.mb-3 = message
   = f.fields_for :courses do |course_form|
     = render "course_field", f: course_form
   - field_data = additional_field_data(form: f, children: :courses)
