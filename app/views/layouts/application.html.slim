@@ -7,29 +7,54 @@ html
     = csp_meta_tag
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    header.navbar.navbar-expand.navbar-fixed-top.navbar-light.bg-warning
-      nav.container
-        .navbar-header
-          = link_to "BestCode", root_path, class: "navbar-brand"
-        = form_with url: plans_path, method: :get, local: true do |f|
-          = f.text_field :keyword, value: params[:keyword], placeholder: "メンターを検索...", class: "form-control"
-        ul.navbar-nav.ml-auto
-          - if user_signed_in?
-            li.nav-item.dropdown
-              = link_to "#", id: "headerNavDropdown", class: "nav-link", data: { toggle: "dropdown" } do
-                = image_tag current_user.image.thumb.url, class: "nav-image"
-              .dropdown-menu.dropdown-menu-right
-                - if current_user.plan.present?
-                  = link_to "プラン編集", edit_users_plan_path, class: "dropdown-item"
-                - else
-                  = link_to "プラン作成", new_users_plan_path, class: "dropdown-item"
-                = link_to "プロフィール", profile_path(current_user), class: "dropdown-item"
-                = link_to "メッセージ", users_message_box_path, class: "dropdown-item"
-                = link_to "メンター", users_mentors_path, class: "dropdown-item"
-                = link_to "メンティー", users_mentees_path, class: "dropdown-item"
-                = link_to "ログアウト", users_sign_out_path, class: "dropdown-item", method: :delete
-          - else
-            li.nav-item
-              = link_to "ログイン", "/users/auth/github", class: "nav-link"
-    .wrapper.container.my-5
-      = yield
+    aside.sidebar.sidebar-expand-lg.sidebar-iconic
+      header.sidebar-header
+        .text-center
+          = link_to "BestCode", root_path
+      nav.sidebar-navigation.ps-container.ps-theme-default
+        ul.menu
+          li.menu-item
+            = link_to root_path, class: "menu-link" do
+              .icon.ti.ti-home
+              .title Dashboard
+          li.menu-item
+            = link_to users_message_box_path, class: "menu-link" do
+              .icon.ti.ti-comment-alt
+              .title Message
+          li.menu-item
+            = link_to users_mentors_path, class: "menu-link" do
+              .icon.ti.ti-user
+              .title Mentors
+          - if current_user.plan.present?
+            li.menu-item
+              = link_to users_mentees_path, class: "menu-link" do
+                .icon.ti.ti-user
+                .title Mentees
+            li.menu-item
+              = link_to plan_path(current_user.plan), class: "menu-link" do
+                .icon.ti.ti-briefcase
+                .title Plan
+    header.topbar
+      .topbar-left
+        .tobbar-search
+          = form_with url: plans_path, method: :get, local: true, class: "form-type-material" do |f|
+            .input-group.pt-0
+              .input-group-prepend
+                .input-group-text
+                  i.ti.ti-search
+              = f.text_field :keyword, value: params[:keyword], placeholder: "メンターを検索...", class: "form-control"
+      .topbar-right
+        ul.topbar-btns
+          li.dropdown
+            = link_to "#", id: "headerNavDropdown", class: "topbar-btn", data: { toggle: "dropdown" } do
+              = image_tag current_user.image.thumb.url, class: "avatar"
+            .dropdown-menu.dropdown-menu-right
+              - if current_user.plan.present?
+                = link_to "プラン編集", edit_users_plan_path, class: "dropdown-item"
+              - else
+                = link_to "プラン作成", new_users_plan_path, class: "dropdown-item"
+              = link_to "プロフィール", profile_path(current_user), class: "dropdown-item"
+              = link_to "ログアウト", users_sign_out_path, class: "dropdown-item", method: :delete
+    main.main-container
+      .main-content
+        = yield
