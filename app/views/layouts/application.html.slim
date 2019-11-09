@@ -55,6 +55,4 @@ html
                 = link_to "プラン作成", new_users_plan_path, class: "dropdown-item"
               = link_to "プロフィール", profile_path(current_user), class: "dropdown-item"
               = link_to "ログアウト", users_sign_out_path, class: "dropdown-item", method: :delete
-    main.main-container
-      .main-content
-        = yield
+    = yield

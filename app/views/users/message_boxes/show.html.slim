@@ -1,13 +1,18 @@
-- if current_user.messaging_users.present?
-  - current_user.messaging_users.each do |user|
-    - latest_message = user.latest_message
-    = link_to users_messages_path(user), class: "mb-3 text-dark text-decoration-none" do
-      .card
-        .card-body
-          .d-flex.align-items-center
-            .mr-2 = image_tag user.image.thumb.url, class: "image-rounded image-size-xs"
-            .mr-2 = user.display_name
-            .small = latest_message.created_at.to_s(:datetime)
-          .mt-2 = latest_message.body.truncate(60)
-- else
-  .text-center メッセージのやり取りはありません
+main.chat-layout
+  aside.aside.aside-lg.aside-expand-lg
+    .aside-body.pt-0.ps-container.ps-theme-default
+      .media-list.media-list-devided.media-list-hover
+        .media-list-body
+          - if current_user.messaging_users.present?
+            - current_user.messaging_users.each do |user|
+              - latest_message = user.latest_message
+              = link_to users_messages_path(user), class: "media align-items-center" do
+                .avatar
+                  = image_tag user.image.thumb.url
+                .media-body
+                  .flexbox.align-items-center
+                    .font-weight-bold.title.text-truncate = user.display_name
+                    small.time = latest_message.formated_created_at
+                  .text-truncate = latest_message.body
+          - else
+            .mt-4.text-center メッセージのやり取りはありません
