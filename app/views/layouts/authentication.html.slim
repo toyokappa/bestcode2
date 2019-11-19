@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title
+      | Bestcode2
+    = csrf_meta_tags
+    = csp_meta_tag
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    header.topbar
+      .topbar-left
+        .topbar-brand
+          = link_to "BestCode", root_path
+        .tobbar-search
+          = form_with url: plans_path, method: :get, local: true, class: "form-type-material" do |f|
+            .input-group.pt-0
+              .input-group-prepend
+                .input-group-text
+                  i.ti.ti-search
+              = f.text_field :keyword, value: params[:keyword], placeholder: "メンターを検索...", class: "form-control"
+      .topbar-right
+        ul.topbar-btns
+          li.nav-item
+              = link_to "ログイン", "/users/auth/github", class: "nav-link"
+    = yield

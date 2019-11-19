@@ -1,25 +1,48 @@
-.card.mb-3
-  .card-header
-    div
-      = link_to @message_user.display_name, profile_path(@message_user), class: "text-dark"
-      span さんにメッセージを送る
-    .text-sm 5000文字以内。Markdown記法で送信することもできます。
-  .card-body
-    = form_with model: @message, url: users_messages_path(@message_user), local: true do |f|
-      .form-group
-        = f.text_area :body, rows: 5, class: "form-control #{'is-invalid' if f.object.errors.full_messages_for(:body).present?}"
-        - f.object.errors.full_messages_for(:body).each do |message|
-          .invalid-feedback = message
-      .text-right
-        = f.submit "送信する", class: "btn btn-warning"
-- @messages.each do |message|
-  .card.mb-3
-    .card-header.d-flex.align-items-center
-      .mr-2 = image_tag message.sender.image.thumb.url, class: "image-rounded image-size-xs"
-      .mr-2 = link_to message.sender_name, profile_path(message.sender), class: "text-dark"
-      .small.mr-2 = message.created_at.to_s(:datetime)
-      - if message.sender == current_user
-        .small.text-muted = message.is_already_read? ? "既読" : "未読"
-        .ml-auto = link_to "削除", users_message_path(@message_user, message), method: :delete, class: "small text-muted", data: { confirm: "本当に削除しますか？" }
-    .card-body
-      .markdown-body = markdown message.body
+main.chat-layout
+  aside.aside.aside-lg.aside-expand-lg
+    .aside-body.pt-0.ps-container.ps-theme-default
+      .media-list.media-list-devided.media-list-hover
+        .media-list-body
+          - if current_user.messaging_users.present?
+            - current_user.messaging_users.each do |user|
+              - latest_message = user.latest_message
+              - active = "active" if user == @message_user
+              = link_to users_messages_path(user), class: "media align-items-center #{active}" do
+                .avatar
+                  = image_tag user.image.thumb.url
+                .media-body
+                  .flexbox.align-items-center
+                    .font-weight-bold.title.text-truncate = user.display_name
+                    small.time = latest_message.formated_created_at
+                  .text-truncate = latest_message.body
+          - else
+            .mt-4.text-center メッセージのやり取りはありません
+  .main-content
+    .card
+      .card-header
+        div
+          = link_to @message_user.display_name, profile_path(@message_user), class: "text-dark font-weight-bold"
+          span さんにメッセージを送る
+        .text-sm 5000文字以内。Markdown記法で送信することもできます。
+      .card-body
+        = form_with model: @message, url: users_messages_path(@message_user), local: true do |f|
+          .form-group
+            = f.text_area :body, rows: 5, class: "form-control #{'is-invalid' if f.object.errors.full_messages_for(:body).present?}"
+            - f.object.errors.full_messages_for(:body).each do |message|
+              .invalid-feedback = message
+          .text-right
+            = f.submit "送信する", class: "btn btn-warning"
+    - @messages.each do |message|
+      .card
+        header.card-header
+          .card-title.flexbox
+            = image_tag message.sender.image.thumb.url, class: "avatar"
+            div
+              h6.mb-0 = link_to message.sender.display_name, profile_path(message.sender)
+              small = message.created_at.to_s(:datetime)
+              - if message.sender == current_user
+                small.ml-1 = message.is_already_read? ? "既読" : "未読"
+          - if message.sender == current_user
+            .ml-auto = link_to "削除", users_message_path(@message_user, message), method: :delete, class: "small text-muted", data: { confirm: "本当に削除しますか？" }
+        .card-body
+          .markdown-body = markdown message.body

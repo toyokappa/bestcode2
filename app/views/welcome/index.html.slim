@@ -1,3 +1,5 @@
-.list-group
-  - @plans.each do |plan|
-    = render "plans/plan", plan: plan
+main.main-container
+  .main-content
+    .list-group
+      - @plans.each do |plan|
+        = render "plans/plan", plan: plan

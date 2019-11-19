@@ -1,9 +1,11 @@
-- if @plans.present?
-  .mb-3
-    span.font-weight-bold = @plans.length.to_s(:delimited)
-    span 人のメンターが見つかりました。
-  .list-group
-    - @plans.each do |plan|
-      = render "plan", plan: plan
-- else
-  .text-center メンターが見つかりませんでした
+main.main-container
+  .main-content
+    - if @plans.present?
+      .mb-3
+        span.font-weight-bold = @plans.length.to_s(:delimited)
+        span 人のメンターが見つかりました。
+      .list-group
+        - @plans.each do |plan|
+          = render "plan", plan: plan
+    - else
+      .text-center メンターが見つかりませんでした

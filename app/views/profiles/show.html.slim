@@ -1,35 +1,37 @@
-.d-flex.mb-4
-  .mr-3 = image_tag @user.image_url, class: "image-rounded image-size-lg"
-  h2 = @user.display_name
-  - if @user == current_user
-    .ml-auto = link_to "メッセージを見る", users_message_box_path, class: "btn btn-warning"
-  - else
-    .ml-auto = link_to "メッセージを送る", users_messages_path(@user), class: "btn btn-warning"
-.card
-  - if @user == current_user
-    .card-header
-      .text-right
-        = link_to "プロフィール編集", edit_users_profile_path, class: "text-warning"
-  .card-body
-    .markdown-body = markdown @user.introduction
-    - if @user.skills.present?
-      h3 スキル
-      - @user.skills.each do |skill|
-        .mb-2
-          span.mr-3 = skill.name
-          span.mr-3.text-warning = "★" * skill.level_before_type_cast
-          span = skill.experience_i18n
-    - if @user.resumes.present?
-      h3 経歴・実績
-      - @user.resumes.each do |resume|
-        .mb-3
-          .text-muted
-            - if resume.start_year.present? && resume.start_month.present?
-              span.mr-2 #{resume.start_year}年#{resume.start_month}月
-            - if resume.end_year.present? && resume.end_month.present?
-              span.mr-2 〜
-              span #{resume.end_year}年#{resume.end_month}月
-          = simple_format h(resume.description)
-    - if @user.plan.present?
-      h3 プラン
-      = link_to @user.plan_name, plan_path(@user.plan), class: "text-warning"
+main.main-container
+  .main-content
+    .d-flex.mb-4
+      .mr-3 = image_tag @user.image_url, class: "image-rounded image-size-lg"
+      h2 = @user.display_name
+      - if @user == current_user
+        .ml-auto = link_to "メッセージを見る", users_message_box_path, class: "btn btn-warning"
+      - else
+        .ml-auto = link_to "メッセージを送る", users_messages_path(@user), class: "btn btn-warning"
+    .card
+      - if @user == current_user
+        .card-header
+          .text-right
+            = link_to "プロフィール編集", edit_users_profile_path, class: "text-warning"
+      .card-body
+        .markdown-body = markdown @user.introduction
+        - if @user.skills.present?
+          h3 スキル
+          - @user.skills.each do |skill|
+            .mb-2
+              span.mr-3 = skill.name
+              span.mr-3.text-warning = "★" * skill.level_before_type_cast
+              span = skill.experience_i18n
+        - if @user.resumes.present?
+          h3 経歴・実績
+          - @user.resumes.each do |resume|
+            .mb-3
+              .text-muted
+                - if resume.start_year.present? && resume.start_month.present?
+                  span.mr-2 #{resume.start_year}年#{resume.start_month}月
+                - if resume.end_year.present? && resume.end_month.present?
+                  span.mr-2 〜
+                  span #{resume.end_year}年#{resume.end_month}月
+              = simple_format h(resume.description)
+        - if @user.plan.present?
+          h3 プラン
+          = link_to @user.plan_name, plan_path(@user.plan), class: "text-warning"
